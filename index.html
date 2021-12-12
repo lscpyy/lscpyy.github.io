@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-13 00:01:27" itemprop="dateModified" datetime="2021-12-13T00:01:27+08:00">2021-12-13</time>
+                <time title="Modified: 2021-12-13 00:18:40" itemprop="dateModified" datetime="2021-12-13T00:18:40+08:00">2021-12-13</time>
               </span>
 
           
@@ -198,10 +198,10 @@
 <p>​        它又分为两类，<u>静态库程序和动态库程序</u></p>
 <p>​        对于静态库文件，它的文件后缀名是lib（linux为.a），它没有入口函数，无法执行，它的代码在编译连接时会放到可执行文件中</p>
 <p>​        对于动态库文件，他的后缀名是dll（linux为.so），它的入口函数是dllMain，它不能单独运行，需要依附于其他程序，在连接是只会记录它的地址</p>
-<p> <img src="images%5C1.jpg" alt="img"> </p>
-<p> <img src="images%5C2.jpg" alt="img"> </p>
+<p> <img src="/images/1.jpg" alt="img"> </p>
+<p> <img src="/images/2.jpg" alt="img"> </p>
 <p>再上图我们可以看见windows.h包含了所有windows头文件，所以我们写程序只需要写这一个头文件就可以了。</p>
-<h3 id="接下来我们看看相关函数"><a href="#接下来我们看看相关函数" class="headerlink" title="接下来我们看看相关函数"></a>接下来我们看看相关函数</h3><p>   <img src="images%5C3.jpg" alt="img"> </p>
+<h3 id="接下来我们看看相关函数"><a href="#接下来我们看看相关函数" class="headerlink" title="接下来我们看看相关函数"></a>接下来我们看看相关函数</h3><p>   <img src="/images/3.jpg" alt="img"> </p>
 <p>前面是它的数据类型</p>
 <p>这里说一下句柄， 句柄（Handle）是一个是用来标识对象或者项目的标识符，可以用来描述窗体、文件等，值得注意的是句柄不能是常量。（它是用来找到内存的东西，但不是指针）。所以上面说的可以找到当前程序的实例句柄也就是说它能找到当前进程的内存。</p>
 <p>MessageBox我们碰到很多，就是弹提示框的函数。前三个参数都能理解，第四个参数打个比方，你在关闭记事本的时候，他会给你提示，是否保存，取消就是关于它的设置。这个函数的返回要用一个值去保存，然后我们才能去发生这个消息，然后进行对消息处理。</p>
@@ -221,7 +221,7 @@
 <p>DBCS如果出现字母和汉字混合，就很难拿到自己想要的结果，而UTF-16用两个字节编码，字母采用补0法。不存在解析出错问题。</p>
 <h6 id="宽字节字符"><a href="#宽字节字符" class="headerlink" title="宽字节字符"></a>宽字节字符</h6><p>wchar_t 实际类型是unsigned short。当用他时，字符串前面加“L”，需要用支持wchar_t函数操作宽字符，就像printf要用wprintf。</p>
 <p>wprintf对UNICODE字符打印不完整。windows下一般使用WriteConsole API打印UNICODE。</p>
-<p>   <img src="images%5C4.jpg" alt="img"> </p>
+<p>   <img src="/images/4.jpg" alt="img"> </p>
 <p>WriteConsole的用法如上，第一个参数句柄我们可以通过GetStdHandle获取</p>
 <p>下一节具体讲窗口创建的步骤](<a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">https://hexo.io/docs/one-command-deployment.html</a>)</p>
 
