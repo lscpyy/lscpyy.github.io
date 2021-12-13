@@ -115,6 +115,16 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -147,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/13/win/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/13/hello/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -161,7 +171,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/12/13/win/" class="post-title-link" itemprop="url">win32编程（一）</a>
+            <a href="/2021/12/13/hello/" class="post-title-link" itemprop="url">我的博客</a>
         </h2>
 
         <div class="post-meta">
@@ -172,7 +182,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-13 00:21:43 / Modified: 00:53:44" itemprop="dateCreated datePublished" datetime="2021-12-13T00:21:43+08:00">2021-12-13</time>
+              <time title="Created: 2021-12-13 00:21:43 / Modified: 16:43:22" itemprop="dateCreated datePublished" datetime="2021-12-13T00:21:43+08:00">2021-12-13</time>
             </span>
 
           
@@ -186,43 +196,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="应用程序分类"><a href="#应用程序分类" class="headerlink" title="应用程序分类"></a>应用程序分类</h2><h3 id="控制台程序-Console"><a href="#控制台程序-Console" class="headerlink" title="控制台程序 Console"></a>控制台程序 Console</h3><p>​        DOS程序，本身没窗口，通过Windows DOS窗口执行</p>
-<p>​        main为其入口函数</p>
-<h3 id="窗口程序"><a href="#窗口程序" class="headerlink" title="窗口程序"></a>窗口程序</h3><p>​        有自己的窗口，可与用户交换</p>
-<p>​        它的入口函数是WinMain</p>
-<h3 id="库程序"><a href="#库程序" class="headerlink" title="库程序"></a>库程序</h3><p>​        它是存放代码和数据的程序，执行文件可从中取出代码放到可执行文件</p>
-<p>​        它又分为两类，<u>静态库程序和动态库程序</u></p>
-<p>​        对于静态库文件，它的文件后缀名是lib（linux为.a），它没有入口函数，无法执行，它的代码在编译连接时会放到可执行文件中</p>
-<p>​        对于动态库文件，他的后缀名是dll（linux为.so），它的入口函数是dllMain，它不能单独运行，需要依附于其他程序，在连接是只会记录它的地址</p>
-<p> <img src="images/1.jpg"> </p>
-<p> <img src="images/2.jpg"> </p>
-<p>再上图我们可以看见windows.h包含了所有windows头文件，所以我们写程序只需要写这一个头文件就可以了。</p>
-<p>接下来我们看看相关函数</p>
-<p>   <img src="images/3.jpg"> </p>
-<p>前面是它的数据类型</p>
-<p>这里说一下句柄， 句柄（Handle）是一个是用来标识对象或者项目的标识符，可以用来描述窗体、文件等，值得注意的是句柄不能是常量。（它是用来找到内存的东西，但不是指针）。所以上面说的可以找到当前程序的实例句柄也就是说它能找到当前进程的内存。</p>
-<p>MessageBox我们碰到很多，就是弹提示框的函数。前三个参数都能理解，第四个参数打个比方，你在关闭记事本的时候，他会给你提示，是否保存，取消就是关于它的设置。这个函数的返回要用一个值去保存，然后我们才能去发生这个消息，然后进行对消息处理。</p>
-<h2 id="窗口创建过程"><a href="#窗口创建过程" class="headerlink" title="窗口创建过程"></a>窗口创建过程</h2><p>有七个步骤：</p>
-<p>1.定义WinMain函数</p>
-<p>2.定义窗口处理函数</p>
-<p>3.注册窗口类</p>
-<p>4.创建窗口</p>
-<p>5.显示窗口</p>
-<p>6.消息循环</p>
-<p>7.消息处理</p>
-<p>在讲这些步骤之前我们先看看字符编码：</p>
-<p>编码背景：</p>
-<p>ASC  7位 128个</p>
-<p>ASCII   8位  256个   新增了128个</p>
-<p>DBCS   单双字节混合编码</p>
-<p>UNICODE  我们常说的就是UTF-16（linux是UTF-8）</p>
-<p>DBCS如果出现字母和汉字混合，就很难拿到自己想要的结果，而UTF-16用两个字节编码，字母采用补0法。不存在解析出错问题。</p>
-<h2 id="宽字节字符"><a href="#宽字节字符" class="headerlink" title="宽字节字符"></a>宽字节字符</h2><p>wchar_t 实际类型是unsigned short。当用他时，字符串前面加“L”，需要用支持wchar_t函数操作宽字符，就像printf要用wprintf。</p>
-<p>wprintf对UNICODE字符打印不完整。windows下一般使用WriteConsole API打印UNICODE。</p>
-<p>   <img src="images/4.jpg"> </p>
-<p>WriteConsole的用法如上，第一个参数句柄我们可以通过GetStdHandle获取</p>
-<p>下一节具体讲窗口创建的步骤</p>
-
+          
       
     </div>
 
