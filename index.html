@@ -187,7 +187,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-14 10:31:44 / Modified: 13:30:44" itemprop="dateCreated datePublished" datetime="2021-12-14T10:31:44+08:00">2021-12-14</time>
+              <time title="Created: 2021-12-14 10:31:44 / Modified: 13:33:37" itemprop="dateCreated datePublished" datetime="2021-12-14T10:31:44+08:00">2021-12-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,67 +210,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <span id="more"></span>
-
-<h1 id="这一章讲一讲七个步骤"><a href="#这一章讲一讲七个步骤" class="headerlink" title="这一章讲一讲七个步骤"></a>这一章讲一讲七个步骤</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>窗口类：是包含窗口之中信息的数据结构</p>
-<p>每个窗口都有窗口类</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 定义WinMain函数</span><br><span class="line">2 定义窗口处理函数（处理消息）</span><br><span class="line">3 注册窗口类</span><br><span class="line">4 创建窗口（在内存中创建窗口）</span><br><span class="line">5显示窗口（根据内存的数据将窗口绘制出来）</span><br><span class="line">6消息循环（提取/翻译/派发）消息</span><br><span class="line">7消息处理</span><br></pre></td></tr></table></figure>
-
-<h3 id="接下来我们看一段代码分析"><a href="#接下来我们看一段代码分析" class="headerlink" title="接下来我们看一段代码分析"></a>接下来我们看一段代码分析</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;windows.h&quot;</span><br><span class="line"> </span><br><span class="line"> //窗口处理函数</span><br><span class="line">LRESULT WndProc(HWND hWnd,UINT nMsg,WPARAM wParam,LPARAM lParam)</span><br><span class="line">&#123;</span><br><span class="line">    return DefWindowProc(hWnd,nMsg,wParam,lParam);</span><br><span class="line">&#125;</span><br><span class="line">//定义WinMain函数</span><br><span class="line">int WinMain(HINSTANCE hInstance,HINSTANCE hPreInstance,LPSTR lpCmdLine, int nCmdShow)</span><br><span class="line">&#123;</span><br><span class="line">    WNDCLASS wc=&#123;0&#125;;</span><br><span class="line">    HWND hWnd = 0;</span><br><span class="line">    MSG nMsg = &#123;0&#125;;</span><br><span class="line">    //定义窗口处理函数</span><br><span class="line">    wc.style = CS_HREDRAW | CS_VREDRAW;//结构体风格</span><br><span class="line">    wc.lpfnWndProc = (WNDPROC)WndProc;//指向窗口过程的指针</span><br><span class="line">    wc.cbClsExtra = 0;//配置给这个类的额外内存</span><br><span class="line">    wc.cbWndExtra = 0;//配置给这个类每个窗口的额外内存</span><br><span class="line">    wc.hInstance = hInstance;//应用程序实例句柄</span><br><span class="line">    wc.hIcon = NULL;//图标资源句柄</span><br><span class="line">    wc.hCursor = NULL;//光标资源句柄</span><br><span class="line">    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);//窗口颜色背景刷子</span><br><span class="line">    wc.lpszMenuName = NULL;//这个类窗口菜单资源名字</span><br><span class="line">    wc.lpszClassName = &quot;Main&quot;;//主窗口类名</span><br><span class="line">    //注册窗口类</span><br><span class="line">    RegisterClass(&amp;wc);</span><br><span class="line">    //创建窗口（在内存中创建）  hWnd=CreateWindow(&quot;Main&quot;,&quot;hWnd&quot;,WS_OVERLAPPEDWINDOW,100,100,500,500,NULL,NULL,hInstance,NULL);</span><br><span class="line">    //显示窗口</span><br><span class="line">    ShowWindow(hWnd,SW_SHOW);</span><br><span class="line">    //消息循环</span><br><span class="line">    while(GetMessage(&amp;nMsg,NULL,0,0))</span><br><span class="line">    &#123;    </span><br><span class="line">        //消息处理</span><br><span class="line">        TranslateMessage(&amp;nMsg);</span><br><span class="line">        DispatchMessage(&amp;nMsg);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在窗口处理函数中， DefWindowProc这个函数是默认的窗口处理函数，我们可以把不关心的消息都丢给它来处理。需要我们处理的我们再做处理。这个函数在处理关闭窗口消息WM_CLOSE时，是调用 DestroyWindow函数关闭窗口并且发 WM_DESTROY消息给应用程序；而它对WM_DESTROY这个消息是不处理的；我们在应用程序中对这个消息的处理是发出WM_QUIT消息。因此WM_CLOSE、WM_DESTROY、WM_QUIT这三个消息是先后产生的。</p>
-<h3 id="对于RegisterClass，我们可以看看解释"><a href="#对于RegisterClass，我们可以看看解释" class="headerlink" title="对于RegisterClass，我们可以看看解释"></a>对于RegisterClass，我们可以看看解释</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RegisterClass is basically you defining a class and including it in your program (much like a #include in C++).</span><br><span class="line">CreateWindow is conceptually the same as you doing a new in C++. You&#x27;re asking Windows to create a new window, and you&#x27;ve got to tell it the type of window. Windows includes a set of predefined windows, such as Button or Edit, but if you want to create an instance of your own window then that&#x27;s fine, you just need to tell it the &quot;class&quot; you&#x27;d like to create. You&#x27;ve already registered this class by calling RegisterClass, so Windows can now go straight to the definition and create an instance of your window.</span><br></pre></td></tr></table></figure>
-
-<p> Windows系统包含一系列的预定义的窗口，例如按钮（button）、编辑框（edit）等。但如果你要创建一个属于你自己的个性窗口，你就要告诉系统这个窗口的“类”。而这个类你已经通过RegisterClass注册过了，所以系统会直接创建你定制的这个窗口类的实例。</p>
-<h3 id="CreateWindowEx内部实现："><a href="#CreateWindowEx内部实现：" class="headerlink" title="CreateWindowEx内部实现："></a>CreateWindowEx内部实现：</h3><p>根传入的名称，先在局部窗口类查找，找到了再将hinstance是否一样，如果相等，就基于它创建。若不相等。就在全局窗口类寻找，若还是找不到，就在系统窗口类查找。均找不到，则创建失败。</p>
-<h3 id="创建子窗口："><a href="#创建子窗口：" class="headerlink" title="创建子窗口："></a>创建子窗口：</h3><p>创建时设置父窗口句柄，创建风格加WS_CHILD|WS_VISIBLE.</p>
-<h3 id="消息："><a href="#消息：" class="headerlink" title="消息："></a>消息：</h3><h4 id="消息基础："><a href="#消息基础：" class="headerlink" title="消息基础："></a>消息基础：</h4><p>组成：窗口句柄，消息ID，消息的两个参数，消息参数的时间，消息产生时鼠标位置</p>
-<p>作用：当系统通知消息工作时，就采用消息的方式派发给窗口</p>
-<p>我们可以看看MSG结构体的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">typedef struct tagMSG &#123;</span><br><span class="line">// msg </span><br><span class="line">HWND hwnd;//窗口句柄</span><br><span class="line">UINT message;//消息ID</span><br><span class="line">WPARAM wParam; </span><br><span class="line">LPARAM lParam;</span><br><span class="line">//两个参数</span><br><span class="line">DWORD time;//消息产生时间 </span><br><span class="line">POINT pt;//消息产生时鼠标的位置</span><br><span class="line">&#125; MSG;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DispatchMessage(&amp;nMsg)&#123;</span><br><span class="line">	nMsg.hwnd--&gt;保存窗口数据的内存--&gt;WndProc</span><br><span class="line">	WndProc(nMsg.hwnd,nMsg.message,nMsg.wParam,nMsg.IParam)//最后两个不用写</span><br><span class="line">	//回到我们自己代码（可以处理消息）</span><br><span class="line">&#125;</span><br><span class="line">//将消息派发到窗口</span><br></pre></td></tr></table></figure>
-
-<p>所以每一个窗口都有窗口处理函数</p>
-<h4 id="浅谈消息相关函数："><a href="#浅谈消息相关函数：" class="headerlink" title="浅谈消息相关函数："></a>浅谈消息相关函数：</h4><h5 id="GetMessage"><a href="#GetMessage" class="headerlink" title="GetMessage"></a>GetMessage</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GetMessage&#123;</span><br><span class="line">	IpMsg//存放获取到消息的BUFF</span><br><span class="line">	hWnd//窗口句柄</span><br><span class="line">	wMsgFilterMin//获取消息的最小ID</span><br><span class="line">	wMsgFiterMax//获取消息的最大ID</span><br><span class="line">	//两个都为0代表可以抓本进程所有消息</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>简单说说，假如我们想关闭进程，就将WM_QUIT放入本进程某个位置，然后GetMessage就会在系统中抓取这个消息</p>
-<h5 id="TranslateMessage"><a href="#TranslateMessage" class="headerlink" title="TranslateMessage"></a>TranslateMessage</h5><p>翻译消息。将按键消息，翻译成字符消息</p>
-<p>检查消息是否时按键消息，如果是，就翻译消息，不是就return 0；</p>
-<h4 id="常用消息"><a href="#常用消息" class="headerlink" title="常用消息"></a>常用消息</h4><h5 id="WM-DESTROY"><a href="#WM-DESTROY" class="headerlink" title="WM_DESTROY:"></a>WM_DESTROY:</h5><p>窗口被摧毁时产生，摧毁之前，做相应善后处理，例如资源，消息</p>
-<h5 id="WM-SYSCOMMAND"><a href="#WM-SYSCOMMAND" class="headerlink" title="WM_SYSCOMMAND:"></a>WM_SYSCOMMAND:</h5><p>产生时间：窗口最大化，最小化，和关闭等</p>
-<p>附带参数 wParam：具体点击的位置；IParam:鼠标光标位置（LOWORD：水平 HIWORD：垂直）</p>
-<p>用法：常在窗口关闭时，提示用户处理</p>
-<h5 id="WM-CREATE："><a href="#WM-CREATE：" class="headerlink" title="WM_CREATE："></a>WM_CREATE：</h5><p>产生时间：创建窗口但未显示时</p>
-<p>IParam：为CREATESTRUCT类型的指针，通过它可以获取CreateWindowEx中的12个参数</p>
-<p>用法：初始化窗口参数，资源等，包括创建子窗口</p>
-<h5 id="WM-SIZE："><a href="#WM-SIZE：" class="headerlink" title="WM_SIZE："></a>WM_SIZE：</h5><p>产生时间：窗口大小发生变化时。</p>
-<p>参数: wParam:窗口大小变化的原因 ；IParam：窗口变化后大小（LOWORD：变化后宽度 HIWORD：变化后高度）</p>
-<p>用法：窗口大小变化时，调整窗口各个部分布局</p>
-<h5 id="WM-QUIT"><a href="#WM-QUIT" class="headerlink" title="WM_QUIT:"></a>WM_QUIT:</h5><p>产生时间：程序员发送</p>
-<p>参数：wParam:PostQuitMessage函数传递的参数 ；</p>
-<p>用法：结束消息循环，当GetMessage收到消息时，返回false，退出循环</p>
-<h3 id="消息循环阻塞"><a href="#消息循环阻塞" class="headerlink" title="消息循环阻塞:"></a>消息循环阻塞:</h3><p>GetMessage-系统获取消息，将消息从系统中移除，阻塞函数，无消息时，等候下一条消息</p>
-<p>PeekMessage-以查看方式从系统中获取，不将消息从系统中移除，非阻塞函数。无消息时，返回false，执行后面代码</p>
-<h4 id="发送消息："><a href="#发送消息：" class="headerlink" title="发送消息："></a>发送消息：</h4><p>SendMessage-发送消息，等候处理结果</p>
-<p>PostMessage-投递消息，消息发出后立刻返回，不等侯消息执行结果。</p>
-<p>系统消息ID范围（0-0x3FF）</p>
-<p>用户自定义ID范围（0x0400-0x7FFF）</p>
-<p>自定义消息宏：WM_USER</p>
-<h3 id="消息队列："><a href="#消息队列：" class="headerlink" title="消息队列："></a>消息队列：</h3><p>进程产生的消息先进系统队列，每隔一段时间，系统队列消息会发送到各个进程队列</p>
-<p>postmessage消息扔到了系统队列</p>
-<p>sendmessage消息既不进系统队列，也没进本进程队列</p>
-<p>所以可知，sendmessage为非队列消息，他是直接将消息发送到窗口的函数，等候消息处理结果</p>
-<p>一个消息无队列和非队列之分，看是否放入队列</p>
-<p>WM_QUIT必须进队列（不仅队列，进程无法终止），WM-CREATE必须不能进队列（若进队列，无法抓取）</p>
-<h3 id="深谈GetMessage"><a href="#深谈GetMessage" class="headerlink" title="深谈GetMessage"></a>深谈GetMessage</h3><p>1.在本进程查找消息，检查是否满足抓取</p>
-<p>2.向操作系统队列抓消息（让系统分发消息，打破时间界限）</p>
-<p>3.检查进程所有窗口需要绘制，若需要，产生WM_PAINT消息，取得消息返回处理</p>
-<p>4.检查定时器，若某一定时器时间到，产生WM_TIMER消息</p>
-<p>5.没有定时器，整理程序资源，内存等。</p>
-<p>6.GetMessage等候下一条消息，PeekMessage返回false。交出程序控制权</p>
-<p>下一节，讲讲资源</p>
-
+          <h1 id=""><a href="#" class="headerlink" title=""></a>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/14/win32%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
