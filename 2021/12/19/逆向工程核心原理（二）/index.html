@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="逆向工程核心原理（二）">
+<meta property="og:url" content="http://example.com/2021/12/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/PE1.jpg">
+<meta property="og:image" content="http://example.com/images/PE2.jpg">
+<meta property="og:image" content="http://example.com/images/PE3.jpg">
+<meta property="og:image" content="http://example.com/images/PE4.jpg">
+<meta property="og:image" content="http://example.com/images/PE5.jpg">
+<meta property="og:image" content="http://example.com/images/PE6.jpg">
+<meta property="og:image" content="http://example.com/images/PE7.jpg">
+<meta property="og:image" content="http://example.com/images/PE8.jpg">
+<meta property="article:published_time" content="2021-12-19T03:03:34.000Z">
+<meta property="article:modified_time" content="2021-12-19T09:09:57.861Z">
+<meta property="article:author" content="LSC">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="逆向工程核心原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/PE1.jpg">
+
+<link rel="canonical" href="http://example.com/2021/12/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>逆向工程核心原理（二） | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/5.jpg">
+      <meta itemprop="name" content="LSC">
+      <meta itemprop="description" content="个人技术分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          逆向工程核心原理（二）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-19 11:03:34 / Modified: 17:09:57" itemprop="dateCreated datePublished" datetime="2021-12-19T11:03:34+08:00">2021-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">逆向工程核心原理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id=""><a href="#" class="headerlink" title=""></a><span id="more"></span></h1><h1 id="PE文件格式："><a href="#PE文件格式：" class="headerlink" title="PE文件格式："></a>PE文件格式：</h1><h2 id="PE文件格式：-1"><a href="#PE文件格式：-1" class="headerlink" title="PE文件格式："></a>PE文件格式：</h2><p>PE文件是指32位可执行文件，也叫PE32，64位的是PE+或者PE32+</p>
+<p>obj文件无法执行，dll和sys不能单独执行，可用其他方式（调试器、服务等·）</p>
+<p>如何加载内存、从何处开始运行、运行时需要哪些dll文件、需要多大的堆、栈内存等，大部分都包含在PE头的结构体中</p>
+<h2 id="PE文件的基本结构："><a href="#PE文件的基本结构：" class="headerlink" title="PE文件的基本结构："></a>PE文件的基本结构：</h2><p>PE头（DOS头到节区头）、PE体（其余部分）。</p>
+<p>文件中使用偏移，内存中使用VA（虚拟地址）表示位置。文件的内容一般分为代码、数据、资源</p>
+<p>各节区头定义了各节区在文件和内存的大小和、位置、属性等PE头与各节区尾部存在一个NULL区，因为文件和内存中节区的起始位置应该在各文件、内存最小单元的倍数位置上，所以剩余区域用NULL填充。</p>
+<p><img src="/images/PE1.jpg"></p>
+<h2 id="VA-amp-RVA："><a href="#VA-amp-RVA：" class="headerlink" title="VA&amp;RVA："></a>VA&amp;RVA：</h2><p>VA是指进程虚拟内存的绝对地址，RVA（虚拟地址）指以某一个基准位置（ImageBase）开始的相对地址。        RVA+ImageBase = VA</p>
+<h2 id="PE头："><a href="#PE头：" class="headerlink" title="PE头："></a>PE头：</h2><h3 id="DOS头："><a href="#DOS头：" class="headerlink" title="DOS头："></a>DOS头：</h3><p>最前面添加的是IMAGE_DOS_HEADER结构体，用来扩展DOS EXE头</p>
+<p>这个结构体大小为40h个字节。我们知道其中两个就好。e_magic（DOS签名，4D5A对应ASCII是“MZ”）和e_lfanew(指示NT头的偏移量）</p>
+<p><img src="/images/PE2.jpg"></p>
+<p>e_lfanew值指向NT头所在位置(NT头的名称为IMAGE_NT_HEADERS)</p>
+<h3 id="DOS存根："><a href="#DOS存根：" class="headerlink" title="DOS存根："></a>DOS存根：</h3><p>即使没有，也能正常运行</p>
+<p>32位的windows OS不会识别它（被识别为PE文件，所以忽略），在DOS环境识别为DOS EXE文件</p>
+<h3 id="NT头："><a href="#NT头：" class="headerlink" title="NT头："></a>NT头：</h3><p>该结构体大小为F8</p>
+<p><img src="/images/PE3.jpg"></p>
+<p>第一个成员是签名（其值为50450000h（‘PE’00））。宁外两个是文件头和可选头</p>
+<h4 id="文件头："><a href="#文件头：" class="headerlink" title="文件头："></a>文件头：</h4><p>是表示文件大致属性的IMAGE_FILE_HEADER结构体</p>
+<p><img src="/images/PE4.jpg"></p>
+<p>主要说四个：</p>
+<h5 id="Machine："><a href="#Machine：" class="headerlink" title="Machine："></a>Machine：</h5><p>每个CPU都拥有唯一的Machine码，兼容32位intel x86芯片的Machine码为14C（在winnt.h文件中有宏定义）</p>
+<h5 id="NumberOfSections："><a href="#NumberOfSections：" class="headerlink" title="NumberOfSections："></a>NumberOfSections：</h5><p>指出文件中存在的节区数，当定义节区与实际节区不同时，会发生运行错误</p>
+<h5 id="SizeOfOptionalHeader："><a href="#SizeOfOptionalHeader：" class="headerlink" title="SizeOfOptionalHeader："></a>SizeOfOptionalHeader：</h5><p>指出IMAGE_OPTIONAL_HEADER32结构体大小，因为PE32+与PE这个结构体大小不同，所以要指出</p>
+<h5 id="Characteristics："><a href="#Characteristics：" class="headerlink" title="Characteristics："></a>Characteristics：</h5><p>该字段用于标识文件属性，文件是否是可运行形态、是否为dll文件等。在winnt.h中记住定义的0002h（文件可执行）和2000h这两个数（File is a dll）</p>
+<h5 id="TimeDateStamp："><a href="#TimeDateStamp：" class="headerlink" title="TimeDateStamp："></a>TimeDateStamp：</h5><p>记录编译器创建此文件的时间</p>
+<h4 id="可选头："><a href="#可选头：" class="headerlink" title="可选头："></a>可选头：</h4><p>IMAGE_OPTIONAL_HEADER32是PE文件中最大的</p>
+<p><img src="/images/PE5.jpg"></p>
+<h5 id="Magic"><a href="#Magic" class="headerlink" title="Magic:"></a>Magic:</h5><p>IMAGE_OPTIONAL_HEADER32的Magic为10B，IMAGE_OPTIONAL_HEADER64的Magic码为20B</p>
+<h5 id="AddressOfEntryPoint："><a href="#AddressOfEntryPoint：" class="headerlink" title="AddressOfEntryPoint："></a>AddressOfEntryPoint：</h5><p>持有EP的RVA，指出文件最先执行的起始位置</p>
+<h5 id="ImageBase："><a href="#ImageBase：" class="headerlink" title="ImageBase："></a>ImageBase：</h5><p>在进程虚拟内存中，指出文件优先装入的地址。EXE、DLL文件被装入用户内存，SYS被装入内核内存。一般EXE的ImageBase为00400000，DLL的ImageBase为10000000，文件载入内存后，EIP设为ImageBase+AddressOfEntryPoint</p>
+<h5 id="SectionAlignment、FileAlignment："><a href="#SectionAlignment、FileAlignment：" class="headerlink" title="SectionAlignment、FileAlignment："></a>SectionAlignment、FileAlignment：</h5><p>SectionAlignment指出了节区在内存中的最小单元。磁盘和内存中的节区大小必须为这两个值的整数倍</p>
+<h5 id="SizeOfImage："><a href="#SizeOfImage：" class="headerlink" title="SizeOfImage："></a>SizeOfImage：</h5><p>指定了PE Image在虚拟内存中所占空间内存大小。文件大小一般与加载进入内存的大小是不相同的</p>
+<h5 id="SizeOfHeader："><a href="#SizeOfHeader：" class="headerlink" title="SizeOfHeader："></a>SizeOfHeader：</h5><p>指出整个PE头的大小，第一节区所在位置与SizeOfHeader距文件开始偏移的量相同</p>
+<h5 id="Subsystem"><a href="#Subsystem" class="headerlink" title="Subsystem:"></a>Subsystem:</h5><p>用来区分系统驱动文件与普通可执行文件</p>
+<p>1（Driver：系统驱动）  2 （GUI：窗口应用程序） 3（CUI：控制台应用程序）</p>
+<h5 id="NumberOfRvaAndSizes"><a href="#NumberOfRvaAndSizes" class="headerlink" title="NumberOfRvaAndSizes:"></a>NumberOfRvaAndSizes:</h5><p>指定DataDirectory（结构体最后一个成员）数组的个数</p>
+<h5 id="DataDirectory："><a href="#DataDirectory：" class="headerlink" title="DataDirectory："></a>DataDirectory：</h5><p>数组的每一项都被定义了值</p>
+<h3 id="节区头："><a href="#节区头：" class="headerlink" title="节区头："></a>节区头：</h3><p>定义了各节区的属性（文件/内存起始位置、大小、访问权限），PE文件中的code（代码）（执行，读取权限）、data（数据）（非执行，读写权限）、resource（资源）（非执行，读取权限）等按照属性分类存储在不同节区。</p>
+<p>节区头是由IMAGE_SECTION_HEADER结构体组成的数组，每个结构体对应一个节区</p>
+<p><img src="/images/PE6.jpg"></p>
+<p>VirtualSize:内存中节区所占大小</p>
+<p>VirtualAddress：内存中节区起始位置（RVA）</p>
+<p>SizeOfRawData：磁盘文件中节区所占大小</p>
+<p>PointerToRawData：磁盘中文件起始位置</p>
+<p>Characteristics：节区属性</p>
+<p>VirtualSize和SizeOfRawData不带任何值，分别于SectionAlignment和FileAlignment确定</p>
+<p>PE规范未明确规定节区的Name，所以可以向里面放任何值</p>
+<h3 id="RVA-to-RAW："><a href="#RVA-to-RAW：" class="headerlink" title="RVA to RAW："></a>RVA to RAW：</h3><p>PE文件加载入内存，每个节区都要准确完成内存地址到文件偏移间的映射，这种映射称为RVA to RAW</p>
+<p>RAW-PointerToRawData = RVA-VirtualAddress</p>
+<h3 id="IAT（导入地址表）："><a href="#IAT（导入地址表）：" class="headerlink" title="IAT（导入地址表）："></a>IAT（导入地址表）：</h3><p>IAT是一种表格，记录程序正在使用哪些库·中的哪些函数</p>
+<h4 id="DLL："><a href="#DLL：" class="headerlink" title="DLL："></a>DLL：</h4><p>加载dll方法有两种，一种是‘显示链接’（程序使用dll时加载，使用完毕后释放内存），一种是“隐式链接”（程序开始时即加载dll，终止时释放）。IAT提供的机制即与隐式链接有关。</p>
+<p>IMAGE_IMPORT_DESCRIPTOR结构体记录着PE文件要导入哪些库文件</p>
+<p><img src="/images/PE7.jpg"></p>
+<p>OriginalFirstThunk：INT的地址（RVA）</p>
+<p>Name：库名称字符串地址（RVA）</p>
+<p>FirstThunk：IAT的地址（RVA）</p>
+<p>INT（Import Name Table（数组））与IAT是长整型，以 NULL结尾，两者大小应相同</p>
+<p>INT各元素的值；为IMAGE_IMPORT_DESCRIPTOR结构体指针</p>
+<p>DataDirectory[1].VirtualAddress的值即是IMAGE_IMPORT_DESCRIPTOR结构体数组的起始地址</p>
+<h5 id="库名称（Name）："><a href="#库名称（Name）：" class="headerlink" title="库名称（Name）："></a>库名称（Name）：</h5><p>Name是一个字符串指针，它指向导入函数所属的库文件名称</p>
+<h5 id="OriginalFirstThunk-INT："><a href="#OriginalFirstThunk-INT：" class="headerlink" title="OriginalFirstThunk - INT："></a>OriginalFirstThunk - INT：</h5><p>INT是一个包含导入函数信息的结构体指针数组。只有获得这些信息，才能在加载到进程内存的库中准确求得相应函数的起始地址</p>
+<h5 id="IMAGE-IMPORT-BYNAME"><a href="#IMAGE-IMPORT-BYNAME" class="headerlink" title="IMAGE_IMPORT_BYNAME:"></a>IMAGE_IMPORT_BYNAME:</h5><p>INT是IMAGE_IMPORT_BYNAME结构体指针数组</p>
+<h5 id="FirstThunk-IAT"><a href="#FirstThunk-IAT" class="headerlink" title="FirstThunk - IAT"></a>FirstThunk - IAT</h5><p>普通的dll实际地址不会被硬编码到IAT，通常与INT有相同值</p>
+<h2 id="EAT（导出地址表）："><a href="#EAT（导出地址表）：" class="headerlink" title="EAT（导出地址表）："></a>EAT（导出地址表）：</h2><p>EAT是一种核心机制，使不同应用程序可以调用库文件使用的函数。通过它可以准确求出相应库导出函数的起始地址</p>
+<p>IMAGE_EXPORT_DIRECTORY结构体保存着导出信息</p>
+<p>DataDirectory[0].VirtualAddress值即是这个结构体的起始位置</p>
+<p><img src="/images/PE8.jpg"></p>
+<p>NumberOfFunctions:实际Export函数的个数</p>
+<p>NumberOfNames：Export函数中具名的函数个数</p>
+<p>AddressOfFunctions：Export函数地址数组</p>
+<p>AddressOfNames：函数名称地址数组</p>
+<p>AddressOfNameOrdinals：Ordinals地址数组</p>
+<p>GetProcAddress引用EAT来获取指定API地址</p>
+<p>对于没有函数名称的导出函数，可以通过Ordinal查找到他们的地址</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" rel="tag"># 逆向工程核心原理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/18/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="逆向工程核心原理（一）">
+      <i class="fa fa-chevron-left"></i> 逆向工程核心原理（一）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">PE文件格式：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%EF%BC%9A-1"><span class="nav-number">2.1.</span> <span class="nav-text">PE文件格式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">PE文件的基本结构：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VA-amp-RVA%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">VA&amp;RVA：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PE%E5%A4%B4%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">PE头：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOS%E5%A4%B4%EF%BC%9A"><span class="nav-number">2.4.1.</span> <span class="nav-text">DOS头：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOS%E5%AD%98%E6%A0%B9%EF%BC%9A"><span class="nav-number">2.4.2.</span> <span class="nav-text">DOS存根：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NT%E5%A4%B4%EF%BC%9A"><span class="nav-number">2.4.3.</span> <span class="nav-text">NT头：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%EF%BC%9A"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">文件头：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Machine%EF%BC%9A"><span class="nav-number">2.4.3.1.1.</span> <span class="nav-text">Machine：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NumberOfSections%EF%BC%9A"><span class="nav-number">2.4.3.1.2.</span> <span class="nav-text">NumberOfSections：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SizeOfOptionalHeader%EF%BC%9A"><span class="nav-number">2.4.3.1.3.</span> <span class="nav-text">SizeOfOptionalHeader：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Characteristics%EF%BC%9A"><span class="nav-number">2.4.3.1.4.</span> <span class="nav-text">Characteristics：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TimeDateStamp%EF%BC%9A"><span class="nav-number">2.4.3.1.5.</span> <span class="nav-text">TimeDateStamp：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%A4%B4%EF%BC%9A"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">可选头：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Magic"><span class="nav-number">2.4.3.2.1.</span> <span class="nav-text">Magic:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AddressOfEntryPoint%EF%BC%9A"><span class="nav-number">2.4.3.2.2.</span> <span class="nav-text">AddressOfEntryPoint：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ImageBase%EF%BC%9A"><span class="nav-number">2.4.3.2.3.</span> <span class="nav-text">ImageBase：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SectionAlignment%E3%80%81FileAlignment%EF%BC%9A"><span class="nav-number">2.4.3.2.4.</span> <span class="nav-text">SectionAlignment、FileAlignment：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SizeOfImage%EF%BC%9A"><span class="nav-number">2.4.3.2.5.</span> <span class="nav-text">SizeOfImage：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SizeOfHeader%EF%BC%9A"><span class="nav-number">2.4.3.2.6.</span> <span class="nav-text">SizeOfHeader：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Subsystem"><span class="nav-number">2.4.3.2.7.</span> <span class="nav-text">Subsystem:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NumberOfRvaAndSizes"><span class="nav-number">2.4.3.2.8.</span> <span class="nav-text">NumberOfRvaAndSizes:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DataDirectory%EF%BC%9A"><span class="nav-number">2.4.3.2.9.</span> <span class="nav-text">DataDirectory：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E5%8C%BA%E5%A4%B4%EF%BC%9A"><span class="nav-number">2.4.4.</span> <span class="nav-text">节区头：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RVA-to-RAW%EF%BC%9A"><span class="nav-number">2.4.5.</span> <span class="nav-text">RVA to RAW：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IAT%EF%BC%88%E5%AF%BC%E5%85%A5%E5%9C%B0%E5%9D%80%E8%A1%A8%EF%BC%89%EF%BC%9A"><span class="nav-number">2.4.6.</span> <span class="nav-text">IAT（导入地址表）：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DLL%EF%BC%9A"><span class="nav-number">2.4.6.1.</span> <span class="nav-text">DLL：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%93%E5%90%8D%E7%A7%B0%EF%BC%88Name%EF%BC%89%EF%BC%9A"><span class="nav-number">2.4.6.1.1.</span> <span class="nav-text">库名称（Name）：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#OriginalFirstThunk-INT%EF%BC%9A"><span class="nav-number">2.4.6.1.2.</span> <span class="nav-text">OriginalFirstThunk - INT：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IMAGE-IMPORT-BYNAME"><span class="nav-number">2.4.6.1.3.</span> <span class="nav-text">IMAGE_IMPORT_BYNAME:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FirstThunk-IAT"><span class="nav-number">2.4.6.1.4.</span> <span class="nav-text">FirstThunk - IAT</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EAT%EF%BC%88%E5%AF%BC%E5%87%BA%E5%9C%B0%E5%9D%80%E8%A1%A8%EF%BC%89%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">EAT（导出地址表）：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LSC"
+      src="/images/5.jpg">
+  <p class="site-author-name" itemprop="name">LSC</p>
+  <div class="site-description" itemprop="description">个人技术分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LSC</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
