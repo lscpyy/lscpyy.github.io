@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="API钩取">
+<meta property="og:url" content="http://example.com/2022/01/02/API%E9%92%A9%E5%8F%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/api1.jpg">
+<meta property="og:image" content="http://example.com/images/api2.jpg">
+<meta property="article:published_time" content="2022-01-02T05:25:52.705Z">
+<meta property="article:modified_time" content="2022-01-02T10:03:23.712Z">
+<meta property="article:author" content="LSC">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="逆向工程核心原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/api1.jpg">
+
+<link rel="canonical" href="http://example.com/2022/01/02/API%E9%92%A9%E5%8F%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>API钩取 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/02/API%E9%92%A9%E5%8F%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/5.jpg">
+      <meta itemprop="name" content="LSC">
+      <meta itemprop="description" content="个人技术分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          API钩取
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-02 13:25:52 / Modified: 18:03:23" itemprop="dateCreated datePublished" datetime="2022-01-02T13:25:52+08:00">2022-01-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">逆向工程核心原理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id=""><a href="#" class="headerlink" title=""></a><span id="more"></span></h1><h1 id="逆向分析之“花”："><a href="#逆向分析之“花”：" class="headerlink" title="逆向分析之“花”："></a>逆向分析之“花”：</h1><h2 id="钩取："><a href="#钩取：" class="headerlink" title="钩取："></a>钩取：</h2><p>钩取是一种截取信息、更改程序执行流向、添加新功能的技术。钩取的整个流程：</p>
+<p>1、使用反汇编器/调试器把握程序的结构与工作原理；</p>
+<p>2、开发需要的“钩子”代码，用于修复BUG、改善程序功能；</p>
+<p>3、灵活操作可执行文件与进程内存，设置“钩子”代码。</p>
+<h2 id="API："><a href="#API：" class="headerlink" title="API："></a>API：</h2><p>应用程序编程接口。对于系统资源（内存、文件、网络、视频、音频等），处于稳定性，windows os禁止用户直接访问。用户使用他们时，必须向系统申请，申请的方法是使用微软提供的win32API。</p>
+<p><img src="/images/api1.jpg"></p>
+<p>用户模式的应用程序访问系统资源，由ntdll.dll向内核模式提出访问申请。</p>
+<p>示例：向notepad.exe打开c:\abc.txt：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">—msvcrt!fopen()</span><br><span class="line">	kernel32!CreateFileW()</span><br><span class="line">			ntdll!ZwCreateFile()</span><br><span class="line">					STSENTER</span><br><span class="line">						--&gt;进入内核模式   //IA-32  Instruction</span><br></pre></td></tr></table></figure>
+
+<h2 id="API钩取："><a href="#API钩取：" class="headerlink" title="API钩取："></a>API钩取：</h2><p>使用API钩取技术的优势：</p>
+<p>1、在API调用前/后运行用户的“钩子”代码</p>
+<p>2、查看或者操作传递给API的参数或API函数的返回值</p>
+<p>3、取消对API的调用，或更改执行流，运行用户代码</p>
+<p>钩取API调用:</p>
+<p>先将dll文件注入目标内存空间，然后用hook！MyCreateFile()钩取对kernel32！CreateFile（）的调用。这样，每当进程调用CreateFile（）API时就会先调用MyCreateFile（）</p>
+<h2 id="技术图表："><a href="#技术图表：" class="headerlink" title="技术图表："></a>技术图表：</h2><p><img src="/images/api2.jpg"></p>
+<h3 id="方法对象："><a href="#方法对象：" class="headerlink" title="方法对象："></a>方法对象：</h3><p>根据针对对象不同，API勾取方法大致分为静态方法和动态方法。</p>
+<p>一般API钩取指动态。</p>
+<p>静态：文件对象    程序运行前钩取    只需要最初钩取一次   用于特殊情况   不可脱勾</p>
+<p>动态：内存对象    程序运行后钩取   每次运行时都要钩取   常规的钩取方法  程序运行时可以脱钩</p>
+<h3 id="位置："><a href="#位置：" class="headerlink" title="位置："></a>位置：</h3><p>技术图标用于指出钩取那一部分呢</p>
+<h4 id="IAT"><a href="#IAT" class="headerlink" title="IAT"></a>IAT</h4><p>IAT将内部的API地址更改为钩取函数地址。</p>
+<p>优点：实现简单</p>
+<p>缺点：无法钩取不在IAT而在程序中使用的API（如：动态加载并使用DLL时）</p>
+<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><p>系统库映射到进程内存时，从中查找API的实际地址，并直接修改代码，具体的几种选择如下：</p>
+<p>1、使用JMP指令修改起始代码；</p>
+<p>2、覆写函数局部；</p>
+<p>3、仅更改必须部分的局部</p>
+<h4 id="EAT："><a href="#EAT：" class="headerlink" title="EAT："></a>EAT：</h4><p>记录在DLL的EAT中的API起始地址更改为钩取函数地址</p>
+<h3 id="技术："><a href="#技术：" class="headerlink" title="技术："></a>技术：</h3><h4 id="调试："><a href="#调试：" class="headerlink" title="调试："></a>调试：</h4><p>优点：调试器拥有被调试者的所有权限，在钩取API过程中，用户可以暂停程序运行，进行添加、修改。删除API钩取等操作</p>
+<p>不足：需大量测试以保证行为的稳定性</p>
+<h4 id="注入："><a href="#注入：" class="headerlink" title="注入："></a>注入：</h4><h5 id="DLL注入："><a href="#DLL注入：" class="headerlink" title="DLL注入："></a>DLL注入：</h5><p>驱使目标进程强制加载用户指定的DLL文件。使用该技术，要先注入DLL中创建钩取代码与设置代码，然后再DllMain（）中调用设置代码，注入的同时即可完成API钩取</p>
+<h5 id="代码注入："><a href="#代码注入：" class="headerlink" title="代码注入："></a>代码注入：</h5><p>在执行代码与数据被注入的状态下直接获取自身所需API地址来使用。</p>
+<p>除了上面列出的API，访问其他进程内存时也常常使用OpenProcess()、WriteProcessMemory（）、ReadProcessMemory（）等API。</p>
+<h1 id="记事本WriteFile（）API钩取："><a href="#记事本WriteFile（）API钩取：" class="headerlink" title="记事本WriteFile（）API钩取："></a>记事本WriteFile（）API钩取：</h1><h2 id="调试技术："><a href="#调试技术：" class="headerlink" title="调试技术："></a>调试技术：</h2><p>能够进行与用户更具交互性的勾取操作。这种技术会向用户提供简单的接口，使用户能够控制目标进程的运行，并且可以自由使用进程内存。</p>
+<h2 id="关于调试器的说明："><a href="#关于调试器的说明：" class="headerlink" title="关于调试器的说明："></a>关于调试器的说明：</h2><h3 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h3><p>调试进程经过注册后，每当被调试者发生调试事件时，OS就会暂停其运行，并向调试者报告相应事件。调试器对相应事件做适当处理后，使被调试者继续运行。</p>
+<p>1.一般的异常也属于调试事件。</p>
+<p>2、若相应进程处于非调试，调试事件会在其自身的异常处理或OS的异常处理机制中被处理掉。</p>
+<p>3、调试器无法处理或不关心的调试事件最终由OS处理</p>
+<h3 id="调试事件："><a href="#调试事件：" class="headerlink" title="调试事件："></a>调试事件：</h3><p>关于调试事件与异常列表这里就不列出来了</p>
+<p>调试器必须处理的是EXCEPTION_BREAKPOINT异常。断点对应的指令INT3，IA-32指令为0xCC。</p>
+<p>调试器实现断点的方法很简单，找到要设置断点的代码在内存中的起始地址，只要把一个字节修改为0xCC。</p>
+<h2 id="调试技术流程："><a href="#调试技术流程：" class="headerlink" title="调试技术流程："></a>调试技术流程：</h2><p>1、对想钩取的进程进行附加操作，使之成为被调试者</p>
+<p>2、“钩子”：将API起始地址的第一个字节修改为0xCC</p>
+<p>3、调试相应API时，控制权转移到调试器</p>
+<p>4、执行需要的操作（操作参数、返回值等）</p>
+<p>5、脱钩：将0xCC恢复原值（为了正常运行API）</p>
+<p>6、运行相应API（无0xCC的正常状态）</p>
+<p>7、“钩子”：再次修改为0xCC（为了继续钩取）</p>
+<p>8、控制权返还被调试者</p>
+<h2 id="工作原理：-1"><a href="#工作原理：-1" class="headerlink" title="工作原理："></a>工作原理：</h2><p>假设notepad要保存文件中的某些内容时会调用kernel32!WriteFile()API</p>
+<h3 id="栈："><a href="#栈：" class="headerlink" title="栈："></a>栈：</h3><p>WriteFile（）定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BOOL WriteFile（</span><br><span class="line">	HANDLE hFile,</span><br><span class="line">	LPCVOID lpBuffer,					//数据缓冲区指针</span><br><span class="line">	DWORD nNUmberofBytesWritten,		//要写的字节数</span><br><span class="line">	LPOVERLAPPED lpOverlapped</span><br><span class="line">）;</span><br></pre></td></tr></table></figure>
+
+<p>在kernel32!WriteFile（）API设置断点，当在记事本输入信息时，调试器会在断点处暂停，直接转到数据缓冲区地址处，可以看到记事本保存的字符串，钩取WriteFile（）API，用指定字符串覆盖数据缓存区中的字符串即可。</p>
+<h3 id="执行流："><a href="#执行流：" class="headerlink" title="执行流："></a>执行流：</h3><p>在WriteFile（）API的起始地址设置了断点，被调试者内部调用WriteFile（）时，会在起始地址处遇到INT3指令。执行该指令时，EIP会增加一个字节。然后控制权转移给调试器（因为在“调试器 - 被调试器”关系中，被调试者中发生的 EXCEPTION_BREAKPOINT异常需要由调试器处理）。修改覆写了数据缓存区的内容后，EIP值被重新更改为WriteFile（）API的起始地址，继续运行。</p>
+<h3 id="“脱钩”与“钩子”："><a href="#“脱钩”与“钩子”：" class="headerlink" title="“脱钩”与“钩子”："></a>“脱钩”与“钩子”：</h3><p>若只将执行流返回到WriteFile（）起始地址，再遇到相同的INT3指令时，就会陷入无限循环，。所以需要除去设置再WriteFile（）API起始地址的断点，将0xCC改为original byte。这一操作称为脱钩。</p>
+<h2 id="源代码分析："><a href="#源代码分析：" class="headerlink" title="源代码分析："></a>源代码分析：</h2><h3 id="main（）："><a href="#main（）：" class="headerlink" title="main（）："></a>main（）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;windows.h&quot;</span><br><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line"></span><br><span class="line">LPVOID g_pfWriteFile = NULL;</span><br><span class="line">CREATE_PROCESS_DEBUG_INFO g_cpdi;</span><br><span class="line">BYTE g_chINT3 = 0xCC, g_chOrgByte = 0;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">    DWORD dwPID;</span><br><span class="line">    if( argc != 2 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;\nUSAGE : hookdbg.exe &lt;pid&gt;\n&quot;);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    // Attach Process</span><br><span class="line">    dwPID = atoi(argv[1]);</span><br><span class="line">    if( !DebugActiveProcess(dwPID) )//将调试器附加到该运行的进程上</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;DebugActiveProcess(%d) failed!!!\n&quot;</span><br><span class="line">               &quot;Error Code = %d\n&quot;, dwPID, GetLastError());</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    //调试器循环</span><br><span class="line">    DebugLoop();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="DebugLoop（）："><a href="#DebugLoop（）：" class="headerlink" title="DebugLoop（）："></a>DebugLoop（）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">void DebugLoop()</span><br><span class="line">&#123;</span><br><span class="line">    DEBUG_EVENT de;</span><br><span class="line">    DWORD dwContinueStatus;</span><br><span class="line">	//等待被调试进程发生事件</span><br><span class="line">    while( WaitForDebugEvent(&amp;de, INFINITE) )</span><br><span class="line">    &#123;</span><br><span class="line">        dwContinueStatus = DBG_CONTINUE;</span><br><span class="line">   		//被调试进程生成或附加事件</span><br><span class="line">        if( CREATE_PROCESS_DEBUG_EVENT == de.dwDebugEventCode )</span><br><span class="line">        &#123;</span><br><span class="line">            OnCreateProcessDebugEvent(&amp;de);</span><br><span class="line">        &#125;</span><br><span class="line">   		//异常事件</span><br><span class="line">        else if( EXCEPTION_DEBUG_EVENT == de.dwDebugEventCode )</span><br><span class="line">        &#123;</span><br><span class="line">            if( OnExceptionDebugEvent(&amp;de) )</span><br><span class="line">                continue;</span><br><span class="line">        &#125;</span><br><span class="line">		//被调试进程终止事件</span><br><span class="line">        else if( EXIT_PROCESS_DEBUG_EVENT == de.dwDebugEventCode )</span><br><span class="line">        &#123;</span><br><span class="line"> 			//被调试者终止-调试器终止</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">		//再次运行被调试者</span><br><span class="line">        ContinueDebugEvent(de.dwProcessId, de.dwThreadId, dwContinueStatus);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>WaitForDebugEvent（）API是等待被调试者发送调试事件的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI WaitForDebugEvent(</span><br><span class="line">	LPDEBUG_EVENT lpDebugEvent.</span><br><span class="line">	DWORD dwMilliseconds</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>发生调试事件，WaitForDebugEvent（）API就会将相关事件信息设置到第一个参数的变量（DEBUG_EVENT结构体对象），然后立刻返回。结构体定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _DEBUG_EVENT &#123;</span><br><span class="line">  DWORD dwDebugEventCode;</span><br><span class="line">  DWORD dwProcessId;</span><br><span class="line">  DWORD dwThreadId;</span><br><span class="line">  union &#123;</span><br><span class="line">    EXCEPTION_DEBUG_INFO      Exception;</span><br><span class="line">    CREATE_THREAD_DEBUG_INFO  CreateThread;</span><br><span class="line">    CREATE_PROCESS_DEBUG_INFO CreateProcessInfo;</span><br><span class="line">    EXIT_THREAD_DEBUG_INFO    ExitThread;</span><br><span class="line">    EXIT_PROCESS_DEBUG_INFO   ExitProcess;</span><br><span class="line">    LOAD_DLL_DEBUG_INFO       LoadDll;</span><br><span class="line">    UNLOAD_DLL_DEBUG_INFO     UnloadDll;</span><br><span class="line">    OUTPUT_DEBUG_STRING_INFO  DebugString;</span><br><span class="line">    RIP_INFO                  RipInfo;</span><br><span class="line">  &#125; u;</span><br><span class="line">&#125; DEBUG_EVENT, *LPDEBUG_EVENT;</span><br></pre></td></tr></table></figure>
+
+<p>前面讲过调试事件。共有9种。DEBUG_EVENT.dwDebugEventCode成员会被设为其中的一种。</p>
+<p>ContinueDebugEvent()API是一个被调试者继续运行的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI ContinueDebugEvent(</span><br><span class="line">	DWORD dwProcessId，</span><br><span class="line">	DWORD dwThreadId,</span><br><span class="line">	DWORD dwContinueStatus</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>最后一个参数，如果处理正常，其值设为DBG_CONTINUE;若无法处理，或希望在应用程序SEH中处理，其值为DBG_EXCEPTION_NOT_HANDLED。</p>
+<h2 id="DebugLoop（）函数的三种调试事件："><a href="#DebugLoop（）函数的三种调试事件：" class="headerlink" title="DebugLoop（）函数的三种调试事件："></a>DebugLoop（）函数的三种调试事件：</h2><h3 id="EXIT-PROCESS-DEBUG-EVENT"><a href="#EXIT-PROCESS-DEBUG-EVENT" class="headerlink" title="EXIT_PROCESS_DEBUG_EVENT:"></a>EXIT_PROCESS_DEBUG_EVENT:</h3><p>被调试进程终止时会触发该事件。</p>
+<h3 id="CREATE-PROCESS-DEBUG-EVENT-OnCreateProcessDebugEvent-："><a href="#CREATE-PROCESS-DEBUG-EVENT-OnCreateProcessDebugEvent-：" class="headerlink" title="CREATE_PROCESS_DEBUG_EVENT-OnCreateProcessDebugEvent()："></a>CREATE_PROCESS_DEBUG_EVENT-OnCreateProcessDebugEvent()：</h3><h4 id="OnCreateProcessDebugEvent"><a href="#OnCreateProcessDebugEvent" class="headerlink" title="OnCreateProcessDebugEvent():"></a>OnCreateProcessDebugEvent():</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">BOOL OnCreateProcessDebugEvent(LPDEBUG_EVENT pde)</span><br><span class="line">&#123;</span><br><span class="line">    // 获取WriteFile() API </span><br><span class="line">    g_pfWriteFile = GetProcAddress(GetModuleHandleA(&quot;kernel32.dll&quot;), &quot;WriteFile&quot;);</span><br><span class="line">    // API Hook - WriteFile()</span><br><span class="line">    //  更改第一个字节为0xCC</span><br><span class="line">    //   orginalbyte是g_ch0rgByte备份 </span><br><span class="line">    memcpy(&amp;g_cpdi, &amp;pde-&gt;u.CreateProcessInfo, sizeof(CREATE_PROCESS_DEBUG_INFO));</span><br><span class="line">    ReadProcessMemory(g_cpdi.hProcess, g_pfWriteFile, </span><br><span class="line">                      &amp;g_chOrgByte, sizeof(BYTE), NULL);</span><br><span class="line">    WriteProcessMemory(g_cpdi.hProcess, g_pfWriteFile, </span><br><span class="line">                       &amp;g_chINT3, sizeof(BYTE), NULL);</span><br><span class="line">    return TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>g_cpdi是CREATE_PROCESS_DEBUG_INFO结构体变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _CREATE_PROCESS_DEBUG_INFO &#123;</span><br><span class="line">  HANDLE                 hFile;</span><br><span class="line">  HANDLE                 hProcess;</span><br><span class="line">  HANDLE                 hThread;</span><br><span class="line">  LPVOID                 lpBaseOfImage;</span><br><span class="line">  DWORD                  dwDebugInfoFileOffset;</span><br><span class="line">  DWORD                  nDebugInfoSize;</span><br><span class="line">  LPVOID                 lpThreadLocalBase;</span><br><span class="line">  LPTHREAD_START_ROUTINE lpStartAddress;</span><br><span class="line">  LPVOID                 lpImageName;</span><br><span class="line">  WORD                   fUnicode;</span><br><span class="line">&#125; CREATE_PROCESS_DEBUG_INFO, *LPCREATE_PROCESS_DEBUG_INFO;</span><br></pre></td></tr></table></figure>
+
+<p>通过hProcess，可以钩取WriteFile（）API（不使用调试，也可以用OpenProcess获取目标进程句柄）。</p>
+<h3 id="EXCEPTION-DEBUG-EVENT-OnExceptionDebugEvent-："><a href="#EXCEPTION-DEBUG-EVENT-OnExceptionDebugEvent-：" class="headerlink" title="EXCEPTION_DEBUG_EVENT-OnExceptionDebugEvent()："></a>EXCEPTION_DEBUG_EVENT-OnExceptionDebugEvent()：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">BOOL OnExceptionDebugEvent(LPDEBUG_EVENT pde)</span><br><span class="line">&#123;</span><br><span class="line">    CONTEXT ctx;</span><br><span class="line">    PBYTE lpBuffer = NULL;</span><br><span class="line">    DWORD dwNumOfBytesToWrite, dwAddrOfBuffer, i;</span><br><span class="line">    PEXCEPTION_RECORD per = &amp;pde-&gt;u.Exception.ExceptionRecord;</span><br><span class="line"></span><br><span class="line">    // BreakPoint exception </span><br><span class="line">    if( EXCEPTION_BREAKPOINT == per-&gt;ExceptionCode )</span><br><span class="line">    &#123;</span><br><span class="line">        // 断点地址为WriteFile() API地址时</span><br><span class="line">        if( g_pfWriteFile == per-&gt;ExceptionAddress )</span><br><span class="line">        &#123;</span><br><span class="line">            // #1. Unhook</span><br><span class="line">            //   将0xCC恢复为original byte</span><br><span class="line">            WriteProcessMemory(g_cpdi.hProcess, g_pfWriteFile, </span><br><span class="line">                               &amp;g_chOrgByte, sizeof(BYTE), NULL);</span><br><span class="line"></span><br><span class="line">            // #2. 获取Thread Context </span><br><span class="line">            ctx.ContextFlags = CONTEXT_CONTROL;</span><br><span class="line">            GetThreadContext(g_cpdi.hThread, &amp;ctx);</span><br><span class="line"></span><br><span class="line">            // #3. WriteFile()的param 2, 3 值</span><br><span class="line">            //   函数参数存储于相应的进程栈</span><br><span class="line">            //   param 2 : ESP + 0x8</span><br><span class="line">            //   param 3 : ESP + 0xC</span><br><span class="line">            ReadProcessMemory(g_cpdi.hProcess, (LPVOID)(ctx.Esp + 0x8), </span><br><span class="line">                              &amp;dwAddrOfBuffer, sizeof(DWORD), NULL);</span><br><span class="line">            ReadProcessMemory(g_cpdi.hProcess, (LPVOID)(ctx.Esp + 0xC), </span><br><span class="line">                              &amp;dwNumOfBytesToWrite, sizeof(DWORD), NULL);</span><br><span class="line"></span><br><span class="line">            // #4. 分配临时缓冲区</span><br><span class="line">            lpBuffer = (PBYTE)malloc(dwNumOfBytesToWrite+1);</span><br><span class="line">            memset(lpBuffer, 0, dwNumOfBytesToWrite+1);</span><br><span class="line"></span><br><span class="line">            // #5. 复制WriteFile()缓冲区到临时缓冲区</span><br><span class="line">            ReadProcessMemory(g_cpdi.hProcess, (LPVOID)dwAddrOfBuffer, </span><br><span class="line">                              lpBuffer, dwNumOfBytesToWrite, NULL);</span><br><span class="line">            printf(&quot;\n### original string ###\n%s\n&quot;, lpBuffer);</span><br><span class="line"></span><br><span class="line">            // #6. 将小写字母转化为大写</span><br><span class="line">            for( i = 0; i &lt; dwNumOfBytesToWrite; i++ )</span><br><span class="line">            &#123;</span><br><span class="line">                if( 0x61 &lt;= lpBuffer[i] &amp;&amp; lpBuffer[i] &lt;= 0x7A )</span><br><span class="line">                    lpBuffer[i] -= 0x20;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            printf(&quot;\n### converted string ###\n%s\n&quot;, lpBuffer);</span><br><span class="line"></span><br><span class="line">            // #7. 将变换后的缓冲区复制到WriteFile()缓冲区</span><br><span class="line">            WriteProcessMemory(g_cpdi.hProcess, (LPVOID)dwAddrOfBuffer, </span><br><span class="line">                               lpBuffer, dwNumOfBytesToWrite, NULL);</span><br><span class="line">            </span><br><span class="line">            // #8. 释放临时缓冲区</span><br><span class="line">            free(lpBuffer);</span><br><span class="line"></span><br><span class="line">            // #9. Thread Context的EIP更改为WriteFile()首地址</span><br><span class="line">            //   (当前 WriteFile() + 1 位置，INT3命令之后)</span><br><span class="line">            ctx.Eip = (DWORD)g_pfWriteFile;</span><br><span class="line">            SetThreadContext(g_cpdi.hThread, &amp;ctx);</span><br><span class="line"></span><br><span class="line">            // #10. 运行被调试进程</span><br><span class="line">            ContinueDebugEvent(pde-&gt;dwProcessId, pde-&gt;dwThreadId, DBG_CONTINUE);</span><br><span class="line">            Sleep(0);</span><br><span class="line"></span><br><span class="line">            // #11. API Hook</span><br><span class="line">            WriteProcessMemory(g_cpdi.hProcess, g_pfWriteFile, </span><br><span class="line">                               &amp;g_chINT3, sizeof(BYTE), NULL);</span><br><span class="line"></span><br><span class="line">            return TRUE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把代码看完，应该就能明白了。</p>
+<p>sleep（0）作用：释放当前线程剩余时间片。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" rel="tag"># 逆向工程核心原理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/25/dll%E6%B3%A8%E5%85%A5/" rel="prev" title="dll注入">
+      <i class="fa fa-chevron-left"></i> dll注入
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E4%B9%8B%E2%80%9C%E8%8A%B1%E2%80%9D%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">逆向分析之“花”：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%92%A9%E5%8F%96%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">钩取：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">API：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API%E9%92%A9%E5%8F%96%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">API钩取：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%A1%A8%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">技术图表：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%AF%B9%E8%B1%A1%EF%BC%9A"><span class="nav-number">2.4.1.</span> <span class="nav-text">方法对象：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">2.4.2.</span> <span class="nav-text">位置：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IAT"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">IAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">代码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EAT%EF%BC%9A"><span class="nav-number">2.4.2.3.</span> <span class="nav-text">EAT：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="nav-number">2.4.3.</span> <span class="nav-text">技术：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%EF%BC%9A"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">调试：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">注入：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DLL%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="nav-number">2.4.3.2.1.</span> <span class="nav-text">DLL注入：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="nav-number">2.4.3.2.2.</span> <span class="nav-text">代码注入：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E4%BA%8B%E6%9C%ACWriteFile%EF%BC%88%EF%BC%89API%E9%92%A9%E5%8F%96%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">记事本WriteFile（）API钩取：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">调试技术：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%B0%83%E8%AF%95%E5%99%A8%E7%9A%84%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">关于调试器的说明：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="nav-number">3.2.1.</span> <span class="nav-text">工作原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="nav-number">3.2.2.</span> <span class="nav-text">调试事件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">3.3.</span> <span class="nav-text">调试技术流程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9A-1"><span class="nav-number">3.4.</span> <span class="nav-text">工作原理：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%EF%BC%9A"><span class="nav-number">3.4.1.</span> <span class="nav-text">栈：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B5%81%EF%BC%9A"><span class="nav-number">3.4.2.</span> <span class="nav-text">执行流：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E8%84%B1%E9%92%A9%E2%80%9D%E4%B8%8E%E2%80%9C%E9%92%A9%E5%AD%90%E2%80%9D%EF%BC%9A"><span class="nav-number">3.4.3.</span> <span class="nav-text">“脱钩”与“钩子”：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">3.5.</span> <span class="nav-text">源代码分析：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main%EF%BC%88%EF%BC%89%EF%BC%9A"><span class="nav-number">3.5.1.</span> <span class="nav-text">main（）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DebugLoop%EF%BC%88%EF%BC%89%EF%BC%9A"><span class="nav-number">3.5.2.</span> <span class="nav-text">DebugLoop（）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DebugLoop%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E8%B0%83%E8%AF%95%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="nav-number">3.6.</span> <span class="nav-text">DebugLoop（）函数的三种调试事件：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EXIT-PROCESS-DEBUG-EVENT"><span class="nav-number">3.6.1.</span> <span class="nav-text">EXIT_PROCESS_DEBUG_EVENT:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CREATE-PROCESS-DEBUG-EVENT-OnCreateProcessDebugEvent-%EF%BC%9A"><span class="nav-number">3.6.2.</span> <span class="nav-text">CREATE_PROCESS_DEBUG_EVENT-OnCreateProcessDebugEvent()：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OnCreateProcessDebugEvent"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">OnCreateProcessDebugEvent():</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXCEPTION-DEBUG-EVENT-OnExceptionDebugEvent-%EF%BC%9A"><span class="nav-number">3.6.3.</span> <span class="nav-text">EXCEPTION_DEBUG_EVENT-OnExceptionDebugEvent()：</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LSC"
+      src="/images/5.jpg">
+  <p class="site-author-name" itemprop="name">LSC</p>
+  <div class="site-description" itemprop="description">个人技术分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LSC</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
