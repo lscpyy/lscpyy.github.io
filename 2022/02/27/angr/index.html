@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="angr">
+<meta property="og:url" content="http://example.com/2022/02/27/angr/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr0_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr0_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr1_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr1_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr2_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr3_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr3_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr3_2.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr4_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr4_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr5_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr5_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr6_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr6_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr7_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr7_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr7_2.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr8_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr8_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr9_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr9_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr10_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr10_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr11_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr11_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr12_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr12_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr13_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr13_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr14_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr14_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr14_2.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr15_2.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr15_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr15_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr15_3.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr16_0.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr16_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr16_2.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr16_3.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr17_1.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr17_2.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr17_3.jpg">
+<meta property="og:image" content="http://example.com/2022/02/27/angr/angr/angr17_0.jpg">
+<meta property="article:published_time" content="2022-02-27T03:46:37.000Z">
+<meta property="article:modified_time" content="2022-03-01T13:18:43.032Z">
+<meta property="article:author" content="LSC">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="angr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/02/27/angr/angr/angr0_0.jpg">
+
+<link rel="canonical" href="http://example.com/2022/02/27/angr/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>angr | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/27/angr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/5.jpg">
+      <meta itemprop="name" content="LSC">
+      <meta itemprop="description" content="个人技术分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          angr
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-27 11:46:37" itemprop="dateCreated datePublished" datetime="2022-02-27T11:46:37+08:00">2022-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-01 21:18:43" itemprop="dateModified" datetime="2022-03-01T21:18:43+08:00">2022-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angr/" itemprop="url" rel="index"><span itemprop="name">angr</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id=""><a href="#" class="headerlink" title=""></a><span id="more"></span></h1><h1 id="00-find-angr"><a href="#00-find-angr" class="headerlink" title="00_find_angr:"></a>00_find_angr:</h1><p><img src="./angr/angr0_0.jpg"></p>
+<p>从这道题逻辑看非常简单，就一个complex_function加密函数，我们可以选择爆破和逆向，但这里可以选择简单的方式</p>
+<p>找到“Good Job”的地址，写代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import angr</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    # 目标文件的路径</span><br><span class="line">    path_to_binary = &#x27;./00_angr_find&#x27;</span><br><span class="line">    # 创建angr项目</span><br><span class="line">    project = angr.Project(path_to_binary)</span><br><span class="line">    </span><br><span class="line">    # 设置项目起点，entry_state代表程序的入口点，即main函数</span><br><span class="line">    initial_state = project.factory.entry_state()</span><br><span class="line">    # 设置模拟器</span><br><span class="line">    sm = project.factory.simgr(initial_state)</span><br><span class="line">    </span><br><span class="line">    # 设置目标地址</span><br><span class="line">    is_good_addr = 0x08048678</span><br><span class="line">    sm.explore(find=is_good_addr) </span><br><span class="line">    #约束模拟器到达find指定的地址</span><br><span class="line">    </span><br><span class="line">    # 如果到达目标地址，打印此时的符号向量</span><br><span class="line">    if sm.found:</span><br><span class="line">        solution_state = sm.found[0]</span><br><span class="line">        print(solution_state.posix.dumps(0))</span><br><span class="line">    # 否者抛出失败异常</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find solution&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr0_1.jpg"></p>
+<h1 id="01-angr-avoid"><a href="#01-angr-avoid" class="headerlink" title="01_angr_avoid:"></a>01_angr_avoid:</h1><p>当我们找到main函数想F5进去的时候，却反编译不了，然后我们就找到Good Job地址;</p>
+<p><img src="./angr/angr1_0.jpg"></p>
+<p>写代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import angr</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    # 目标文件的路径</span><br><span class="line">    path_to_binary = &#x27;./01_angr_avoid&#x27;</span><br><span class="line">    # 创建angr项目</span><br><span class="line">    project = angr.Project(path_to_binary)</span><br><span class="line">    </span><br><span class="line">    # 设置项目起点，enter_state代表程序的入口点，即main函数</span><br><span class="line">    initial_state = project.factory.entry_state()</span><br><span class="line">    # 设置模拟器</span><br><span class="line">    sm = project.factory.simgr(initial_state)</span><br><span class="line">    </span><br><span class="line">    # 设置目标地址</span><br><span class="line">    is_good_addr = 0x080485E0</span><br><span class="line">    fail_addr = 0x080485F2</span><br><span class="line">    sm.explore(find=is_good_addr, avoid=fail_addr)</span><br><span class="line">    #avoid避开avoid的地址</span><br><span class="line">    </span><br><span class="line">    # 如果到达目标地址，打印此时的符号向量</span><br><span class="line">    if sm.found:</span><br><span class="line">        solution_state = sm.found[0]</span><br><span class="line">        print(solution_state.posix.dumps(0))</span><br><span class="line">    # 否者抛出失败异常</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find solution&#x27;)</span><br><span class="line">    </span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br></pre></td></tr></table></figure>
+
+<p> 我们新增了一个avoid选项,但是在某些题目中，添加avoid可以有效地防止路径爆炸 </p>
+<p><img src="./angr/angr1_1.jpg"></p>
+<h1 id="02-angr-find-condition"><a href="#02-angr-find-condition" class="headerlink" title="02_angr_find_condition:"></a>02_angr_find_condition:</h1><p>和第一题类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import angr</span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./02_angr_find_condition&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line">    sm = p.factory.simulation_manager(init_state)</span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        print(&quot;Solution:&#123;&#125;&quot;.format(found_state.posix.dumps(0)))</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>find处也可以是函数，可以不写函数地址，写字符串。</p>
+<p><img src="./angr/angr2_0.jpg"></p>
+<h1 id="03-angr-symbolic-registers"><a href="#03-angr-symbolic-registers" class="headerlink" title="03_angr_symbolic_registers:"></a>03_angr_symbolic_registers:</h1><p><img src="./angr/angr3_0.jpg"></p>
+<p>这里输入三个参数，angr没法解出来。</p>
+<p><img src="./angr/angr3_1.jpg"></p>
+<p>这里看到分别把三个参数给了eax，ebx和edx，我们就可以写如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./03_angr_symbolic_registers&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">    start_addr = 0x8048980</span><br><span class="line">    init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line">    #将eax，ebx，edx符号化为32位的位向量</span><br><span class="line">    pass1 = claripy.BVS(&quot;pass1&quot;,32)</span><br><span class="line">    pass2 = claripy.BVS(&quot;pass2&quot;,32)</span><br><span class="line">    pass3 = claripy.BVS(&quot;pass3&quot;,32)</span><br><span class="line">    init_state.regs.eax = pass1</span><br><span class="line">    init_state.regs.ebx = pass2</span><br><span class="line">    init_state.regs.edx = pass3</span><br><span class="line">    </span><br><span class="line">    sm = p.factory.simulation_manager(init_state)</span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        password1 = found_state.solver.eval(pass1)</span><br><span class="line">        password2 = found_state.solver.eval(pass2)</span><br><span class="line">        password3 = found_state.solver.eval(pass3)</span><br><span class="line">        print(&quot;Solution:&#123;:x&#125; &#123;:x&#125; &#123;:x&#125;&quot;.format(password1,password2,password3))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;No solution found&quot;)</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>地址0x8048978处是恢复栈，所以我们从下一个地址开始。</p>
+<p>结果：</p>
+<p><img src="./angr/angr3_2.jpg"></p>
+<h1 id="04-angr-symbolic-stack"><a href="#04-angr-symbolic-stack" class="headerlink" title="04_angr_symbolic_stack:"></a>04_angr_symbolic_stack:</h1><p><img src="./angr/angr4_0.jpg"></p>
+<p>这里我们可以看到输入在栈上，我们需要 符号化栈上的内存 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./04_angr_symbolic_stack&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">	start_addr = 0x08048697</span><br><span class="line">    init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line">    </span><br><span class="line">	#符号化栈上的内存</span><br><span class="line">	padding_size = 8</span><br><span class="line">	init_state.stack_push(init_state.regs.ebp)</span><br><span class="line">    init_state.regs.ebp = init_state.regs.esp</span><br><span class="line">    init_state.regs.esp -= padding_size</span><br><span class="line">    pass1 = init_state.solver.BVS(&quot;pass1&quot;,32)</span><br><span class="line">    pass2 = init_state.solver.BVS(&quot;pass2&quot;,32)</span><br><span class="line">    init_state.stack_push(pass1)</span><br><span class="line">    init_state.stack_push(pass2)</span><br><span class="line">    </span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        password1 = found_state.solver.eval(pass1)</span><br><span class="line">        password2 = found_state.solver.eval(pass2)</span><br><span class="line">        print(&quot;Solution:&#123;&#125; &#123;&#125;&quot;.format(password1,password2))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;Solution not found&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr4_1.jpg"></p>
+<h1 id="05-angr-symbolic-memory"><a href="#05-angr-symbolic-memory" class="headerlink" title="05_angr_symbolic_memory:"></a>05_angr_symbolic_memory:</h1><p><img src="./angr/angr5_0.jpg"></p>
+<p>我们要将 将内存地址符号化 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./05_angr_symbolic_memory&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">    start_addr = 0x08048601</span><br><span class="line">    init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line"></span><br><span class="line">    p1 = init_state.solver.BVS(&quot;p1&quot;,64)</span><br><span class="line">    p2 = init_state.solver.BVS(&quot;p2&quot;,64)</span><br><span class="line">    p3 = init_state.solver.BVS(&quot;p3&quot;,64)</span><br><span class="line">    p4 = init_state.solver.BVS(&quot;p4&quot;,64)</span><br><span class="line"></span><br><span class="line">    p1_addr = 0xA1BA1C0</span><br><span class="line">    p2_addr = 0xA1BA1C8</span><br><span class="line">    p3_addr = 0xA1BA1D0</span><br><span class="line">    p4_addr = 0xA1BA1D8</span><br><span class="line">	#内存地址符号化</span><br><span class="line">    init_state.memory.store(p1_addr,p1)</span><br><span class="line">    init_state.memory.store(p2_addr,p2)</span><br><span class="line">    init_state.memory.store(p3_addr,p3)</span><br><span class="line">    init_state.memory.store(p4_addr,p4)</span><br><span class="line">    </span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        password1 = found_state.solver.eval(p1,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        password2 = found_state.solver.eval(p2,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        password3 = found_state.solver.eval(p3,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        password4 = found_state.solver.eval(p4,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        print(&quot;Solution:&#123;&#125; &#123;&#125; &#123;&#125; &#123;&#125;&quot;.format(password1,password2,password3,password4))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;solution not found&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr5_1.jpg"></p>
+<h1 id="06-angr-symbolic-dynamic-memory"><a href="#06-angr-symbolic-dynamic-memory" class="headerlink" title="06_angr_symbolic_dynamic_memory:"></a>06_angr_symbolic_dynamic_memory:</h1><p>这一节关于堆区的内容，程序申请两块内存，把输入存进去</p>
+<p> 虽然malloc来的空间是动态的，但是存放malloc返回值的变量buffer位于bss段，是静态的，那么我们可以伪造指针，使其指向一片可写内存，将这块内存符号化 </p>
+<p><img src="./angr/angr6_0.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./06_angr_symbolic_dynamic_memory&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">    start_addr = 0x08048699</span><br><span class="line">    init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line">    print(&quot;ESP:&quot;,init_state.regs.esp)</span><br><span class="line">	#开辟内存</span><br><span class="line">    buffer0 = 0x7fff0000-0x100</span><br><span class="line">    buffer1 = 0x7fff0000-0x200</span><br><span class="line"></span><br><span class="line">    buffer0_addr = 0x0ABCC8A4</span><br><span class="line">    buffer1_addr = 0x0ABCC8AC</span><br><span class="line">	#buffer_addr保存着buffer0的地址</span><br><span class="line">    init_state.memory.store(buffer0_addr,buffer0,endness = p.arch.memory_endness)</span><br><span class="line">    init_state.memory.store(buffer1_addr,buffer1,endness = p.arch.memory_endness)</span><br><span class="line"></span><br><span class="line">    p1 = init_state.solver.BVS(&quot;p1&quot;,8*8)</span><br><span class="line">    p2 = init_state.solver.BVS(&quot;p2&quot;,8*8)</span><br><span class="line">	init_state.memory.store(buffer0,p1)</span><br><span class="line">    init_state.memory.store(buffer1,p2)</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        pass1 = found_state.solver.eval(p1,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        pass2 = found_state.solver.eval(p2,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line"></span><br><span class="line">        print(&quot;Solution: &#123;&#125; &#123;&#125;&quot;.format(pass1,pass2))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;solution not found&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>endness = p.arch.memory_endness</p>
+<p>默认情况angr以大端方式写入数据，该参数以小端写入</p>
+<p>结果：</p>
+<p><img src="./angr/angr6_1.jpg"></p>
+<h1 id="07-angr-symbolic-file"><a href="#07-angr-symbolic-file" class="headerlink" title="07_angr_symbolic_file:"></a>07_angr_symbolic_file:</h1><p><img src="./angr/angr7_0.jpg"></p>
+<p><img src="./angr/angr7_1.jpg"></p>
+<p>程序执行输入，然后把输入写入文件，再从文件中读取，所以我们要符号化一个文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./07_angr_symbolic_file&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    start_addr = 0x080488D6</span><br><span class="line">    init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line"></span><br><span class="line">    filename = &quot;OJKSQYDP.txt&quot;</span><br><span class="line">    file_size = 0x40</span><br><span class="line"></span><br><span class="line">    password = init_state.solver.BVS(&quot;password&quot;,file_size*8)</span><br><span class="line">    sim_file = angr.storage.SimFile(filename,content = password,size = file_size)</span><br><span class="line">	#符号化文件插入</span><br><span class="line">    init_state.fs.insert(filename,sim_file)</span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line">	sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        password_str = found_state.solver.eval(password,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        print(&quot;Solution:&#123;&#125;&quot;.format(password_str))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;solution not found&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr7_2.jpg"></p>
+<h1 id="08-angr-constraints"><a href="#08-angr-constraints" class="headerlink" title="08_angr_constraints:"></a>08_angr_constraints:</h1><p><img src="./angr/angr8_0.jpg"></p>
+<p>这里比较是一个一个比较，容易产生路径爆炸，所以比较函数这我们需要自己定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./08_angr_constraints&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    start_addr = 0x08048625</span><br><span class="line">    init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line"></span><br><span class="line">    buffer_addr = 0x0804A050</span><br><span class="line">    password = init_state.solver.BVS(&quot;password&quot;,16*8)</span><br><span class="line">    init_state.memory.store(buffer_addr,password)</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    check_addr = 0x08048565</span><br><span class="line">    sm.explore(find = check_addr)</span><br><span class="line">    if sm.found:</span><br><span class="line">        check_state = sm.found[0]</span><br><span class="line"></span><br><span class="line">        desired_string = &quot;AUPDNNPROEZRJWKB&quot;</span><br><span class="line">        check_param1 = buffer_addr</span><br><span class="line">        check_param2 = 0x10</span><br><span class="line">        #从内存中加载</span><br><span class="line">		check_bvs = check_state.memory.load(check_param1,check_param2)</span><br><span class="line"></span><br><span class="line">        check_constraint = desired_string == check_bvs</span><br><span class="line">        #添加约束</span><br><span class="line">        check_state.add_constraints(check_constraint)</span><br><span class="line"></span><br><span class="line">        password1 = check_state.solver.eval(password,cast_to = bytes).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        print(&quot;Solution:&#123;&#125;&quot;.format(password1))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr8_1.jpg"></p>
+<h1 id="09-angr-hooks"><a href="#09-angr-hooks" class="headerlink" title="09_angr_hooks:"></a>09_angr_hooks:</h1><p><img src="./angr/angr9_0.jpg"></p>
+<p>这里把输入加密与password比较，然后再把password加密与输入比较，所以就不能简单的用上题的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./09_angr_hooks&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">    check_addr = 0x080486B3</span><br><span class="line">    check_skip_size = 5</span><br><span class="line"></span><br><span class="line">    @p.hook(check_addr,length = check_skip_size)</span><br><span class="line">    def check_hook(state):</span><br><span class="line">        user_input_addr = 0x804A054</span><br><span class="line">        user_input_length = 0x10</span><br><span class="line"></span><br><span class="line">        user_input_bvs = state.memory.load(</span><br><span class="line">                user_input_addr,</span><br><span class="line">                user_input_length</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">        desired = &quot;XYMKBKUHNIQYNQXE&quot;</span><br><span class="line"></span><br><span class="line"> 		state.regs.eax = claripy.If(</span><br><span class="line">                desired == user_input_bvs,</span><br><span class="line">                claripy.BVV(1,32),</span><br><span class="line">                claripy.BVV(0,32)</span><br><span class="line">                )</span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line"></span><br><span class="line">        print(&quot;Solution:&#123;&#125;&quot;.format(found_state.posix.dumps(0)))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;solution not found&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr9_1.jpg"></p>
+<h1 id="10-angr-simprocedures"><a href="#10-angr-simprocedures" class="headerlink" title="10_angr_simprocedures:"></a>10_angr_simprocedures:</h1><p>这次函数的比较我们需要hook</p>
+<p><img src="./angr/angr10_0.jpg"></p>
+<p>通过对函数交叉引用我们发现有多处调用这个函数，所以我们hook整个函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">mport angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &quot;./10_angr_simprocedures&quot;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">    class mySimPro(angr.SimProcedure):</span><br><span class="line">        def run(self,user_input_addr,user_input_length):</span><br><span class="line">            angr_bvs = self.state.memory.load(</span><br><span class="line">                    user_input_addr,</span><br><span class="line">                    user_input_length</span><br><span class="line">                    )</span><br><span class="line">            desired = &quot;ORSDDWXHZURJRBDH&quot;</span><br><span class="line">            return claripy.If(</span><br><span class="line">                    desired == angr_bvs,</span><br><span class="line">                    claripy.BVV(1,32),</span><br><span class="line">                    claripy.BVV(0,32)</span><br><span class="line">                    )</span><br><span class="line"></span><br><span class="line">    #以函数名字hook</span><br><span class="line">    check_symbol = &quot;check_equals_ORSDDWXHZURJRBDH&quot;</span><br><span class="line">    p.hook_symbol(check_symbol,mySimPro())</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        password = found_state.posix.dumps(0).decode(&#x27;utf-8&#x27;)</span><br><span class="line">        print(&quot;Solution:&#123;&#125;&quot;.format(password))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;solution not found&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main_</span><br></pre></td></tr></table></figure>
+
+<p>结果:</p>
+<p><img src="./angr/angr10_1.jpg"></p>
+<h1 id="11-angr-sim-scanf"><a href="#11-angr-sim-scanf" class="headerlink" title="11_angr_sim_scanf:"></a>11_angr_sim_scanf:</h1><p><img src="./angr/angr11_0.jpg"></p>
+<p>这里我们需要模拟scanf函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import angr</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    binary_path = &#x27;./11_angr_sim_scanf&#x27;</span><br><span class="line">    p = angr.Project(binary_path)</span><br><span class="line"></span><br><span class="line">    initial_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">    class ReplacementScanf(angr.SimProcedure):</span><br><span class="line"></span><br><span class="line">        def run(self, fmt, scanf0_addr, scanf1_addr):</span><br><span class="line">            scanf0 = claripy.BVS(&#x27;scanf0&#x27;, 4*8)</span><br><span class="line">            scanf1 = claripy.BVS(&#x27;scanf1&#x27;, 4*8)</span><br><span class="line"></span><br><span class="line">            self.state.memory.store(scanf0_addr, scanf0, endness=p.arch.memory_endness)</span><br><span class="line">            self.state.memory.store(scanf1_addr, scanf1, endness=p.arch.memory_endness)</span><br><span class="line">			# 将scanf0和scanf1保存到当前状态</span><br><span class="line">            self.state.globals[&#x27;solution0&#x27;] = scanf0 </span><br><span class="line">            self.state.globals[&#x27;solution1&#x27;] = scanf1</span><br><span class="line"> 	scanf_symbol = &#x27;__isoc99_scanf&#x27;</span><br><span class="line">    p.hook_symbol(scanf_symbol, ReplacementScanf())</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(initial_state)</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&#x27;Good Job.&#x27; in  state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&#x27;Try again&#x27; in  state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    sm.explore(find=is_good, avoid=is_bad)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        solution_state = sm.found[0]</span><br><span class="line">		#从当前状态取出scanf0和scanf1</span><br><span class="line">		solution0 = solution_state.globals[&#x27;solution0&#x27;]</span><br><span class="line">        solution1 = solution_state.globals[&#x27;solution1&#x27;]</span><br><span class="line"></span><br><span class="line">        solution = &#x27;%u %u&#x27; % (solution_state.solver.eval(solution0), solution_state.solver.eval(solution1))</span><br><span class="line">        print(solution)</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find the solution&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr11_0.jpg"></p>
+<h1 id="12-angr-veritesting"><a href="#12-angr-veritesting" class="headerlink" title="12_angr_veritesting:"></a>12_angr_veritesting:</h1><p>程序输入32个字符，然后加密并在每次加密之后进行比较</p>
+<p>如果直接搜索路径，分支太多很浪费时间，所以的想办法简化</p>
+<p>angr有自动简化路径的选项</p>
+<p><img src="./angr/angr12_0.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import angr</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &#x27;./12_angr_veritesting&#x27;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    initial_state = p.factory.entry_state()</span><br><span class="line">    sm = p.factory.simgr(initial_state, veritesting=True) # 设置自动合并路径</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    def is_bad(state):</span><br><span class="line">        return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line"></span><br><span class="line">    sm.explore(find=is_good, avoid=is_bad)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line"></span><br><span class="line">        solution = found_state.posix.dumps(0)</span><br><span class="line">        print(solution)</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find the solution&#x27;)</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr12_1.jpg"></p>
+<h1 id="13-angr-static-binary"><a href="#13-angr-static-binary" class="headerlink" title="13_angr_static_binary:"></a>13_angr_static_binary:</h1><p> 对于静态库函数</p>
+<p>angr为我们实现了一部分库函数，我们可以直接在脚本中调用 </p>
+<p><img src="./angr/angr13_0.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">def main(argv):</span><br><span class="line">    bin_path = &#x27;./13_angr_static_binary&#x27;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line">    printf_addr = 0x0804ED40</span><br><span class="line">    scanf_addr = 0x0804ED80</span><br><span class="line">    strcmp_addr = 0x08048280</span><br><span class="line">    puts_addr = 0x0804F350</span><br><span class="line">    libc_start_main_addr = 0x08048D10</span><br><span class="line"></span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line">    sm = p.factory.simgr(init_state, veritesting=True)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    p.hook(printf_addr,angr.SIM_PROCEDURES[&#x27;libc&#x27;][&#x27;printf&#x27;]())</span><br><span class="line">    p.hook(scanf_addr,angr.SIM_PROCEDURES[&#x27;libc&#x27;][&#x27;scanf&#x27;]())</span><br><span class="line">    p.hook(strcmp_addr,angr.SIM_PROCEDURES[&#x27;libc&#x27;][&#x27;strcmp&#x27;]())</span><br><span class="line">    p.hook(puts_addr,angr.SIM_PROCEDURES[&#x27;libc&#x27;][&#x27;puts&#x27;]())</span><br><span class="line">    p.hook(libc_start_main_addr,angr.SIM_PROCEDURES[&#x27;glibc&#x27;][&#x27;__libc_start_main&#x27;]())</span><br><span class="line">    def is_good(state):</span><br><span class="line">        return b&quot;Good Job&quot; in state.posix.dumps(1)</span><br><span class="line">    def is_bad(state):</span><br><span class="line">		return b&quot;Try again&quot; in state.posix.dumps(1)</span><br><span class="line">		</span><br><span class="line">   	sm.explore(find = is_good,avoid = is_bad)</span><br><span class="line">   	</span><br><span class="line">    if sm.found:</span><br><span class="line">        found_state = sm.found[0]</span><br><span class="line">        print(&quot;Solution:&#123;&#125;&quot;.format(found_state.posix.dumps(0)))</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&quot;solution not found&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main(sys.argv)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果·：</p>
+<p><img src="./angr/angr13_1.jpg"></p>
+<h1 id="14-angr-shared-library"><a href="#14-angr-shared-library" class="headerlink" title="14_angr_shared_library:"></a>14_angr_shared_library:</h1><p><img src="./angr/angr14_0.jpg"></p>
+<p>程序接受输入，然后将输入传递给validate函数处理,validate函数位于共享库中，作用是验证加密后的输入共享库,其实也算一种可执行文件，只是没有经过符号链接,但是在angr的帮助下，我们可以直接加载共享库,思路就是使用共享库创建项目，然后伪造参数调用共享库中的函数</p>
+<p><img src="./angr/angr14_1.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import angr</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    bin_path = &#x27;./lib14_angr_shared_library.so&#x27;</span><br><span class="line"></span><br><span class="line">    base = 0x400000 # 这个地址随便写</span><br><span class="line">    p = angr.Project( bin_path,load_options=&#123;&#x27;main_opts&#x27; : &#123;&#x27;custom_base_addr&#x27; : base&#125;&#125;   ) # 加载共享库</span><br><span class="line"></span><br><span class="line">    password_addr = claripy.BVV(0x300000, 32)</span><br><span class="line">    password = claripy.BVS(&#x27;password&#x27;, 8 * 8)</span><br><span class="line"></span><br><span class="line">    validate_function_addr = base + 0x6D7</span><br><span class="line">    init_state = p.factory.call_state(validate_function_addr, password_addr, 8) # 构造一个指向password的指针传递给函数使用</span><br><span class="line">    init_state.memory.store(password_addr, password)</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)                 </span><br><span class="line"></span><br><span class="line">    success_addr = base + 0x783</span><br><span class="line">    sm.explore(find=success_addr)  # 寻找返回指令地址</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        solution_state = sm.found[0]</span><br><span class="line">        solution_state.add_constraints(solution_state.regs.eax != 0) # 约束返回</span><br><span class="line">值</span><br><span class="line">        solution = solution_state.se.eval(password,cast_to = bytes)</span><br><span class="line">        print(long_to_bytes(solution).decode())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br><span class="line">~                       </span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr14_2.jpg"></p>
+<h1 id="15-angr-arbitrary-read"><a href="#15-angr-arbitrary-read" class="headerlink" title="15_angr_arbitrary_read:"></a>15_angr_arbitrary_read:</h1><p><img src="./angr/angr15_2.jpg"></p>
+<p>看似程序不管如何都输出try _again</p>
+<p><img src="./angr/angr15_1.jpg"></p>
+<p>我们发现输入的v4与s相差16个字节</p>
+<p><img src="./angr/angr15_0.jpg"></p>
+<p>而good_job与try_again相差四个字节，而输入会有20个字节，所以内存泄漏会导致good_job输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    bin_path = &#x27;./15_angr_arbitrary_read&#x27;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">    class ReplacementScanf(angr.SimProcedure): # hook scanf函数，符号化输入</span><br><span class="line"></span><br><span class="line">        def run(self, fmt, number_addr, string_addr):</span><br><span class="line"></span><br><span class="line">            scanf0 = claripy.BVS(&#x27;scanf0&#x27;, 4 * 8)</span><br><span class="line">            scanf1 = claripy.BVS(&#x27;scanf1&#x27;, 20 * 8)</span><br><span class="line"></span><br><span class="line">            for char in scanf1.chop(bits=8):</span><br><span class="line">                self.state.add_constraints(char &gt;= &#x27;0&#x27;, char &lt;= &#x27;z&#x27;)</span><br><span class="line"></span><br><span class="line">            scanf0_addr = number_addr</span><br><span class="line">            self.state.memory.store(scanf0_addr,</span><br><span class="line">            		scanf0,endness=p.arch.memory_endness)</span><br><span class="line">            scanf1_addr = string_addr</span><br><span class="line"> 			self.state.memory.store(scanf1_addr, scanf1, endmess=p.arch.memory_endness)</span><br><span class="line"></span><br><span class="line">            self.state.globals[&#x27;solution0&#x27;] = scanf0</span><br><span class="line">            self.state.globals[&#x27;solution1&#x27;] = scanf1</span><br><span class="line"></span><br><span class="line">    scanf_symbol = &#x27;__isoc99_scanf&#x27;</span><br><span class="line">    p.hook_symbol(scanf_symbol, ReplacementScanf())</span><br><span class="line"></span><br><span class="line">    def check_puts(state): # 检查puts的参数是否指向good job</span><br><span class="line">        puts_parameter = state.memory.load(state.regs.esp + 4, 4, endness=p.arch.memory_endness) # 从栈中取出puts的参数</span><br><span class="line"></span><br><span class="line">        if state.solver.symbolic(puts_parameter): # 如果参数是符号化的</span><br><span class="line">            good_job_string_addr = 0x4D52584B</span><br><span class="line">            is_vulnerable_expresion = puts_parameter == good_job_string_addr</span><br><span class="line">            copied_state = state.copy()</span><br><span class="line">            copied_state.add_constraints(is_vulnerable_expresion)</span><br><span class="line"></span><br><span class="line">            if copied_state.satisfiable(): # 如果参数指向good job</span><br><span class="line">                state.add_constraints(is_vulnerable_expresion)</span><br><span class="line">                return True</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        puts_addr = 0x08048370</span><br><span class="line">        if state.addr == puts_addr: # 当程序执行到puts函数时</span><br><span class="line">            return check_puts(state)</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">    sm.explore(find=is_good)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        solution_state = sm.found[0]</span><br><span class="line">        solution = &#x27;%u %s&#x27; % (solution_state.solver.eval(solution_state.globals[&#x27;solution0&#x27;]), solution_state.solver.eval(solution_state.globals[&#x27;solution1&#x27;],cast_to = bytes).decode())</span><br><span class="line">        print(solution)</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find the solution&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr15_3.jpg"></p>
+<h1 id="16-angr-arbitrary-write"><a href="#16-angr-arbitrary-write" class="headerlink" title="16_angr_arbitrary_write:"></a>16_angr_arbitrary_write:</h1><p><img src="./angr/angr16_0.jpg"></p>
+<p><img src="./angr/angr16_1.jpg"></p>
+<p><img src="./angr/angr16_2.jpg"></p>
+<p>password_buffer不等于那一串，但是我们发现输入的s可以溢出到dest对dest修改使其指向password_buffer的值，然后对其修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import sys</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    bin_path = &#x27;./16_angr_arbitrary_write&#x27;</span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">    class ReplacementScanf(angr.SimProcedure): # hook scanf函数，符号化key和s</span><br><span class="line"></span><br><span class="line">        def run(self, fmt, number_addr, string_addr):</span><br><span class="line">            scanf0 = claripy.BVS(&#x27;scanf0&#x27;, 4 * 8)</span><br><span class="line">            scanf1 = claripy.BVS(&#x27;scanf1&#x27;, 20 * 8)</span><br><span class="line"></span><br><span class="line">            scanf0_addr = number_addr</span><br><span class="line">            scanf1_addr = string_addr</span><br><span class="line"></span><br><span class="line">            for char in scanf1.chop(bits=8):</span><br><span class="line">                self.state.add_constraints(char &gt;= &#x27;0&#x27;, char &lt;= &#x27;z&#x27;)</span><br><span class="line"></span><br><span class="line">            self.state.memory.store(scanf0_addr, scanf0)</span><br><span class="line">            self.state.memory.store(scanf1_addr, scanf1)</span><br><span class="line">           self.state.globals[&#x27;solution0&#x27;] = scanf0</span><br><span class="line">            self.state.globals[&#x27;solution1&#x27;] = scanf1</span><br><span class="line"></span><br><span class="line">    scanf_symbol = &#x27;__isoc99_scanf&#x27;</span><br><span class="line">    p.hook_symbol(scanf_symbol, ReplacementScanf())</span><br><span class="line"></span><br><span class="line">    def check_strncpy(state):</span><br><span class="line">        # 检查s和dest是否正确</span><br><span class="line">        strncpy_src = state.memory.load(state.regs.esp + 8, 4, endness=p.arch.memory_endness)</span><br><span class="line">        strncpy_des = state.memory.load(state.regs.esp + 4, 4, endness=p.arch.memory_endness)</span><br><span class="line"></span><br><span class="line">        src_contents = state.memory.load(strncpy_src, 8)</span><br><span class="line"></span><br><span class="line">        if state.solver.symbolic(src_contents) and state.solver.symbolic(strncpy_des):</span><br><span class="line">            password_string = &#x27;NDYNWEUJ&#x27;</span><br><span class="line">            buffer_addr = 0x57584344</span><br><span class="line"></span><br><span class="line">            dose_src_hold_password = src_contents == password_string</span><br><span class="line">            dose_dest_equal_buffer_addr = strncpy_des == buffer_addr</span><br><span class="line"></span><br><span class="line">           if state.satisfiable(extra_constraints=(dose_dest_equal_buffer_addr, dose_src_hold_password)):</span><br><span class="line">                state.add_constraints(dose_src_hold_password, dose_dest_equal_buffer_addr)</span><br><span class="line">                return True</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">    sm = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">    def is_good(state):</span><br><span class="line">        # 判断是否来到strncpy函数位置</span><br><span class="line">        strncpy_addr = 0x08048410</span><br><span class="line">        if state.addr == strncpy_addr:</span><br><span class="line">            return check_strncpy(state)</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line">  	sm.explore(find=is_good)</span><br><span class="line"></span><br><span class="line">    if sm.found:</span><br><span class="line">        solution_state = sm.found[0]</span><br><span class="line"></span><br><span class="line">        solution0 = solution_state.globals[&#x27;solution0&#x27;]</span><br><span class="line">        solution1 = solution_state.globals[&#x27;solution1&#x27;]</span><br><span class="line"></span><br><span class="line">        solution = &quot;%u %s&quot; % (solution_state.solver.eval(solution0), solution_state.solver.eval(solution1,cast_to = bytes).decode())</span><br><span class="line">        print(solution)</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find the solution&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br><span class="line">                                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr16_3.jpg"></p>
+<h1 id="17-angr-arbitrary-iump"><a href="#17-angr-arbitrary-iump" class="headerlink" title="17_angr_arbitrary_iump:"></a>17_angr_arbitrary_iump:</h1><p> 栈溢出漏洞 </p>
+<p> 我们只需要在read_input函数中检查返回地址是否print_good函数的地址即可 </p>
+<p><img src="./angr/angr17_1.jpg"></p>
+<p><img src="./angr/angr17_2.jpg"></p>
+<p><img src="./angr/angr17_3.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">import angr</span><br><span class="line">import claripy</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    binary_path = &#x27;./17_angr_arbitrary_jump&#x27;</span><br><span class="line">    project = angr.Project(binary_path)</span><br><span class="line"></span><br><span class="line">    initial_state = project.factory.entry_state()</span><br><span class="line">    simulation = project.factory.simgr(</span><br><span class="line">    initial_state,</span><br><span class="line">    save_unconstrained=True,</span><br><span class="line">    stashes=&#123;</span><br><span class="line">      &#x27;active&#x27; : [initial_state],</span><br><span class="line">      &#x27;unconstrained&#x27; : [],</span><br><span class="line">      &#x27;found&#x27; : [],</span><br><span class="line">      &#x27;not_needed&#x27; : []</span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">    class ReplacementScanf(angr.SimProcedure):</span><br><span class="line"></span><br><span class="line">        def run(self, fmt, string_addr):</span><br><span class="line">            exploit = claripy.BVS(&#x27;exploit&#x27;, 8*64)</span><br><span class="line"></span><br><span class="line">            for char in exploit.chop(bits=8):</span><br><span class="line">                self.state.add_constraints(char &gt;= &#x27;0&#x27;, char &lt;= &#x27;z&#x27;)</span><br><span class="line"></span><br><span class="line">            exploit_addr = string_addr</span><br><span class="line">            self.state.memory.store(exploit_addr, exploit)</span><br><span class="line"></span><br><span class="line">            self.state.globals[&#x27;solution&#x27;] = exploit</span><br><span class="line"></span><br><span class="line">    scanf_symbol = &#x27;__isoc99_scanf&#x27;</span><br><span class="line">    project.hook_symbol(scanf_symbol, ReplacementScanf())</span><br><span class="line"></span><br><span class="line">    while (simulation.active or simulation.unconstrained) and (not simulation.found):</span><br><span class="line">        for unconstrained_state in simulation.unconstrained:</span><br><span class="line">            def should_move(s):</span><br><span class="line">                return s is unconstrained_state</span><br><span class="line"></span><br><span class="line">            simulation.move(&#x27;unconstrained&#x27;, &#x27;found&#x27;, filter_func=should_move)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        simulation.step()</span><br><span class="line"></span><br><span class="line">    if simulation.found:</span><br><span class="line">       	solution_state = simulation.found[0]</span><br><span class="line"></span><br><span class="line">        solution_state.add_constraints(solution_state.regs.eip == 0x42585249)</span><br><span class="line"></span><br><span class="line">        solution = solution_state.se.eval(solution_state.globals[&#x27;solution&#x27;],cast_to = bytes)</span><br><span class="line">        print(solution)</span><br><span class="line">    else:</span><br><span class="line">        raise Exception(&#x27;Could not find the solution&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br><span class="line">                                          </span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./angr/angr17_0.jpg"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/angr/" rel="tag"># angr</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/24/%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/" rel="prev" title="异常控制流">
+      <i class="fa fa-chevron-left"></i> 异常控制流
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00-find-angr"><span class="nav-number">2.</span> <span class="nav-text">00_find_angr:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#01-angr-avoid"><span class="nav-number">3.</span> <span class="nav-text">01_angr_avoid:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#02-angr-find-condition"><span class="nav-number">4.</span> <span class="nav-text">02_angr_find_condition:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03-angr-symbolic-registers"><span class="nav-number">5.</span> <span class="nav-text">03_angr_symbolic_registers:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#04-angr-symbolic-stack"><span class="nav-number">6.</span> <span class="nav-text">04_angr_symbolic_stack:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#05-angr-symbolic-memory"><span class="nav-number">7.</span> <span class="nav-text">05_angr_symbolic_memory:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#06-angr-symbolic-dynamic-memory"><span class="nav-number">8.</span> <span class="nav-text">06_angr_symbolic_dynamic_memory:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#07-angr-symbolic-file"><span class="nav-number">9.</span> <span class="nav-text">07_angr_symbolic_file:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#08-angr-constraints"><span class="nav-number">10.</span> <span class="nav-text">08_angr_constraints:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#09-angr-hooks"><span class="nav-number">11.</span> <span class="nav-text">09_angr_hooks:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-angr-simprocedures"><span class="nav-number">12.</span> <span class="nav-text">10_angr_simprocedures:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-angr-sim-scanf"><span class="nav-number">13.</span> <span class="nav-text">11_angr_sim_scanf:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-angr-veritesting"><span class="nav-number">14.</span> <span class="nav-text">12_angr_veritesting:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-angr-static-binary"><span class="nav-number">15.</span> <span class="nav-text">13_angr_static_binary:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-angr-shared-library"><span class="nav-number">16.</span> <span class="nav-text">14_angr_shared_library:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-angr-arbitrary-read"><span class="nav-number">17.</span> <span class="nav-text">15_angr_arbitrary_read:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#16-angr-arbitrary-write"><span class="nav-number">18.</span> <span class="nav-text">16_angr_arbitrary_write:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#17-angr-arbitrary-iump"><span class="nav-number">19.</span> <span class="nav-text">17_angr_arbitrary_iump:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LSC"
+      src="/images/5.jpg">
+  <p class="site-author-name" itemprop="name">LSC</p>
+  <div class="site-description" itemprop="description">个人技术分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LSC</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
