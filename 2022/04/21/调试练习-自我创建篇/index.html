@@ -21,20 +21,18 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="csapp第一章">
-<meta property="og:url" content="http://example.com/2021/12/16/csapp%E7%AC%AC%E4%B8%80%E7%AB%A0/index.html">
+<meta property="og:title" content="调试练习-自我创建篇">
+<meta property="og:url" content="http://example.com/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-%E8%87%AA%E6%88%91%E5%88%9B%E5%BB%BA%E7%AF%87/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/images/6.jpg">
-<meta property="article:published_time" content="2021-12-16T08:45:55.000Z">
-<meta property="article:modified_time" content="2021-12-16T10:02:32.974Z">
+<meta property="article:published_time" content="2022-04-21T04:54:08.000Z">
+<meta property="article:modified_time" content="2022-04-21T05:28:31.578Z">
 <meta property="article:author" content="LSC">
 <meta property="article:tag" content="hexo">
-<meta property="article:tag" content="csapp">
+<meta property="article:tag" content="逆向工程核心原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/6.jpg">
 
-<link rel="canonical" href="http://example.com/2021/12/16/csapp%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+<link rel="canonical" href="http://example.com/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-%E8%87%AA%E6%88%91%E5%88%9B%E5%BB%BA%E7%AF%87/">
 
 
 <script id="page-configurations">
@@ -47,7 +45,7 @@
   };
 </script>
 
-  <title>csapp第一章 | Hexo</title>
+  <title>调试练习-自我创建篇 | Hexo</title>
   
 
 
@@ -167,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/16/csapp%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-%E8%87%AA%E6%88%91%E5%88%9B%E5%BB%BA%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/5.jpg">
@@ -180,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          csapp第一章
+          调试练习-自我创建篇
         </h1>
 
         <div class="post-meta">
@@ -191,7 +189,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-16 16:45:55 / Modified: 18:02:32" itemprop="dateCreated datePublished" datetime="2021-12-16T16:45:55+08:00">2021-12-16</time>
+              <time title="Created: 2022-04-21 12:54:08 / Modified: 13:28:31" itemprop="dateCreated datePublished" datetime="2022-04-21T12:54:08+08:00">2022-04-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,7 +197,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/csapp/" itemprop="url" rel="index"><span itemprop="name">csapp</span></a>
+                  <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">逆向工程核心原理</span></a>
                 </span>
             </span>
 
@@ -214,45 +212,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id=""><a href="#" class="headerlink" title=""></a><span id="more"></span></h1><p>信息就是位+上下文</p>
-<p>由ASCII字符构成的文件称文本文件，其他文件叫二进制文件</p>
-<p>从源文件到目标文件的过程：</p>
-<p> 1.预处理阶段：将 include &lt;stdio.h&gt; 代表引用的标准输入输出系统头文件的代码内容直接插入程序文本中，得到hello.i文件</p>
-<p>2.编译阶段：将预处理后的hello.i翻译成汇编的文本文件hello.s</p>
-<p>3.汇编阶段：将汇编文件hello.s翻译成机器语言指令hello.o</p>
-<p>4.链接阶段：hello.o还不能正常工作，因为其引用了printf ,其存在于预先编译好的printf.o文件中，我们要将其使用连接器合并到我们的hello.o文件中，最终得到了hello可执行程序文件</p>
-<p>hello.c——&gt;hello.i——&gt; hello.s——&gt;hello.o——&gt;hello.exe</p>
-<p>每个I/O设备都通过一个控制器或适配器与I/O总线相连</p>
-<p><img src="/images/6.jpg"></p>
-<p>控制器：I/O设备本身或者系统的主印刷电路板上的芯片组</p>
-<p>适配器：一块插入主板插槽的卡</p>
-<p>主存：临时存储设备，用来存放程序和程序处理的数据，由一组动态随机存取存储器芯片组成</p>
-<p>处理器：中央处理单元（CPU），是解释存储在主存中的搜索引擎。核心是一个大小为一个字的存储设备（或寄存器），称为程序计时器（PC）。</p>
-<p>处理器的指令集架构和处理器的微体系结构：指令集架构描述的是每条机器代码指令的效果，而微体系结构描述得是处理器实际上如何实现</p>
-<p>存储器层次结构的主要思想是上一层的存储器作为低一层存储器的高速缓存。所以存储设备划分层次结构为：CPU寄存器位于顶部，紧接着多层的硬件高速缓存存储器，DRAM主存和磁盘存储器</p>
-<p>操作系统是应用程序和硬件之间插入的一层软件，功能是：</p>
-<p>1.防止硬件被失控的应用程序滥用</p>
-<p>2.向应用程序提供简单一致的机制来控制复杂而又通常大小不同的低级硬件设备。操作系统通过抽象实现这一过程</p>
-<h3 id="三个抽象是："><a href="#三个抽象是：" class="headerlink" title="三个抽象是："></a>三个抽象是：</h3><p>1.文件对I/O设备的抽象</p>
-<p>2.虚拟内存是对主存和磁盘的抽象</p>
-<p>3.进程是对处理器，主存和I/O设备的抽象</p>
-<h3 id="进程"><a href="#进程" class="headerlink" title="进程:"></a>进程:</h3><p>进程是操作系统对一个正在运行程序的抽象，系统可同时运行多个进程</p>
-<p>并发运行：一个进程的指令和另一个进程的指令是交错执行的</p>
-<p>多核处理器同时能执行多个程序</p>
-<p>处理器在进程间切换称上下文切换</p>
-<p>shell通过调用一个专门的函数，即系统调用，来执行我们的请求，系统调用会将控制权给传递给操作系统。操作系统保存shell进程的上下文，创建一个新的进程及其上下文，将控制权交给新进程。新进程终止后，操作系统恢复shell进程的上下文，将控制权传回给它，shell进程等待下一命令输入</p>
-<p>从一个进程到另一个进程的转换是由操作系统内核管理的</p>
-<p>实现进程这个抽象概念需要低级硬件和操作系统之间的密切合作</p>
-<h3 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h3><p>一个进程实际可由多个线程组成，每个线程都运行在进程的上下文</p>
-<h3 id="Amdahl定律："><a href="#Amdahl定律：" class="headerlink" title="Amdahl定律："></a>Amdahl定律：</h3><p>若系统执行某应用程序需要的时间为T0，系统某部分执行时间为比例为a，该部分性能提升比为K，现在需要时间为T1 = [（1-a）+a/k]*T0</p>
-<p>加速比为s = 1/[(1-a)+a/k]</p>
-<h3 id="并发与并行："><a href="#并发与并行：" class="headerlink" title="并发与并行："></a>并发与并行：</h3><p>并发指同时具有多个活动的系统；并行指用并发来使一个系统运行的更快</p>
-<h4 id="线程级并发："><a href="#线程级并发：" class="headerlink" title="线程级并发："></a>线程级并发：</h4><p>线程是一个进程可以执行多个控制流</p>
-<p>多核处理器是将多个CPU集成在一个集成电路芯片</p>
-<p>超线程允许一个CPU执行多个控制流技术，超线程可以在单个周期基础上决定要执行哪个线程，减少了执行多任务时模拟并发的需求</p>
-<h4 id="指令集并行："><a href="#指令集并行：" class="headerlink" title="指令集并行："></a>指令集并行：</h4><p>现代处理器可以同时执行多条指令的属性称指令集并行。</p>
-<p>处理器达到比一个周期执行一条指令更快的执行效率称为超标量</p>
-<h4 id="单指令，多数据并行"><a href="#单指令，多数据并行" class="headerlink" title="单指令，多数据并行:"></a>单指令，多数据并行:</h4><p>允许一个指令产生多个可以并行执行的操作，称单指令，多数据，即SIMD</p>
+        <h1 id=""><a href="#" class="headerlink" title=""></a><span id="more"></span></h1><p>相同的可执行文件以父进程运行和子进程运行表现出不同的行为特征。</p>
+<h1 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h1><p>父进程创建子进程以挂起的方式，然后设置子进程的EIP。然后运行子进程。</p>
+<p>我们来看一个示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;tchar.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void ChildProc()</span><br><span class="line">&#123;</span><br><span class="line">    MessageBox(NULL, L&quot;This is a child process!&quot;, L&quot;DebugMe2&quot;, MB_OK);</span><br><span class="line"></span><br><span class="line">    ExitProcess(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void _tmain(int argc, TCHAR *argv[]) </span><br><span class="line">&#123;</span><br><span class="line">    TCHAR                   szPath[MAX_PATH] = &#123;0,&#125;;</span><br><span class="line">    STARTUPINFO				si = &#123;sizeof(STARTUPINFO),&#125;;</span><br><span class="line">    PROCESS_INFORMATION		pi = &#123;0,&#125;;</span><br><span class="line">    CONTEXT                 ctx = &#123;0,&#125;;</span><br><span class="line"></span><br><span class="line">    _tprintf(L&quot;This is a parent process!\n&quot;);</span><br><span class="line"></span><br><span class="line">    if( !GetModuleFileName(NULL, szPath, sizeof(TCHAR) * MAX_PATH) )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;GetModuleFileName() failed! [%d]\n&quot;, GetLastError());</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Create Child Process</span><br><span class="line">    if( !CreateProcess(</span><br><span class="line">            szPath,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            FALSE,</span><br><span class="line">            CREATE_SUSPENDED,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            &amp;si,</span><br><span class="line">            &amp;pi) )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;CreateProcess() failed! [%d]\n&quot;, GetLastError());</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Change EIP</span><br><span class="line">    ctx.ContextFlags = CONTEXT_FULL;</span><br><span class="line">    if( !GetThreadContext(pi.hThread, &amp;ctx) )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;GetThreadContext() failed! [%d]\n&quot;, GetLastError());</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ctx.Eip = (DWORD)ChildProc;</span><br><span class="line"></span><br><span class="line">    if( !SetThreadContext(pi.hThread, &amp;ctx) )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;SetThreadContext() failed! [%d]\n&quot;, GetLastError());</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Resume Main Thread</span><br><span class="line">    if( -1 == ResumeThread(pi.hThread) )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;ResumeThread() failed! [%d]\n&quot;, GetLastError());</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    WaitForSingleObject(pi.hProcess, INFINITE);</span><br><span class="line"></span><br><span class="line">    CloseHandle(pi.hProcess);</span><br><span class="line">    CloseHandle(pi.hThread);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到这个文件就是将创建一个子进程以挂起的模式。然后将一个函数地址设置为子进程的EIP，然后恢复子进程运行。</p>
+<p>接下来我们做调试练习。</p>
+<h1 id="调试练习"><a href="#调试练习" class="headerlink" title="调试练习"></a>调试练习</h1><p>在调试之前，我们大概要知道步骤。</p>
+<p>我们先调试父进程查看子进程的起始地址。然后再子进程EP处设置无限循环。这里我们采用新的调试方法–JIT调试法。</p>
+<h2 id="JIT调试"><a href="#JIT调试" class="headerlink" title="JIT调试"></a>JIT调试</h2><p>运行进程发生异常时，OS自动运行指定调试器附加发生异常的进程。</p>
 
     </div>
 
@@ -263,7 +232,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/hexo/" rel="tag"># hexo</a>
-              <a href="/tags/csapp/" rel="tag"># csapp</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" rel="tag"># 逆向工程核心原理</a>
           </div>
 
         
@@ -272,13 +241,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/14/win32%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="win32编程（二）">
-      <i class="fa fa-chevron-left"></i> win32编程（二）
+    <a href="/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-%E6%9C%8D%E5%8A%A1%E7%AF%87/" rel="prev" title="调试练习-服务篇">
+      <i class="fa fa-chevron-left"></i> 调试练习-服务篇
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/12/18/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="逆向工程核心原理（一）">
-      逆向工程核心原理（一） <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -337,7 +303,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E6%8A%BD%E8%B1%A1%E6%98%AF%EF%BC%9A"><span class="nav-number">1.0.1.</span> <span class="nav-text">三个抽象是：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.0.2.</span> <span class="nav-text">进程:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.0.3.</span> <span class="nav-text">线程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Amdahl%E5%AE%9A%E5%BE%8B%EF%BC%9A"><span class="nav-number">1.0.4.</span> <span class="nav-text">Amdahl定律：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C%EF%BC%9A"><span class="nav-number">1.0.5.</span> <span class="nav-text">并发与并行：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%BA%A7%E5%B9%B6%E5%8F%91%EF%BC%9A"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">线程级并发：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E5%B9%B6%E8%A1%8C%EF%BC%9A"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">指令集并行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%8C%87%E4%BB%A4%EF%BC%8C%E5%A4%9A%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">单指令，多数据并行:</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">调试练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JIT%E8%B0%83%E8%AF%95"><span class="nav-number">3.1.</span> <span class="nav-text">JIT调试</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
