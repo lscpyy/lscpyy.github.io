@@ -20,17 +20,28 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="个人技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/hexo/page/2/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="调试练习-PE映像切换篇">
+<meta property="og:url" content="http://example.com/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-PE%E6%98%A0%E5%83%8F%E5%88%87%E6%8D%A2%E7%AF%87/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="个人技术分享">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/ts/3_1.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3_2.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3_3.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3_4.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3_5.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3_6.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3_7.jpg">
+<meta property="og:image" content="http://example.com/images/ts/3.8.jpg">
+<meta property="article:published_time" content="2022-04-21T13:54:22.000Z">
+<meta property="article:modified_time" content="2022-04-21T16:40:24.392Z">
 <meta property="article:author" content="LSC">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="逆向工程核心原理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/ts/3_1.jpg">
 
-<link rel="canonical" href="http://example.com/tags/hexo/page/2/">
+<link rel="canonical" href="http://example.com/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-PE%E6%98%A0%E5%83%8F%E5%88%87%E6%8D%A2%E7%AF%87/">
 
 
 <script id="page-configurations">
@@ -38,12 +49,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>Tag: hexo | Hexo</title>
+  <title>调试练习-PE映像切换篇 | Hexo</title>
   
 
 
@@ -156,218 +167,116 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">hexo
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-PE%E6%98%A0%E5%83%8F%E5%88%87%E6%8D%A2%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/5.jpg">
+      <meta itemprop="name" content="LSC">
+      <meta itemprop="description" content="个人技术分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          调试练习-PE映像切换篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-21 21:54:22" itemprop="dateCreated datePublished" datetime="2022-04-21T21:54:22+08:00">2022-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-22 00:40:24" itemprop="dateModified" datetime="2022-04-22T00:40:24+08:00">2022-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">逆向工程核心原理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-01-07T14:27:01+08:00"
-              content="2022-01-07">
-          01-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/01/07/TLS%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" itemprop="url">
-            <span itemprop="name">TLS回调函数</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-01-02T13:25:52+08:00"
-              content="2022-01-02">
-          01-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/01/02/API%E9%92%A9%E5%8F%96/" itemprop="url">
-            <span itemprop="name">API钩取</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-25T19:22:19+08:00"
-              content="2021-12-25">
-          12-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/25/dll%E6%B3%A8%E5%85%A5/" itemprop="url">
-            <span itemprop="name">dll注入</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-21T20:08:17+08:00"
-              content="2021-12-21">
-          12-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/21/win32%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" itemprop="url">
-            <span itemprop="name">win32程序运行原理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-19T11:03:34+08:00"
-              content="2021-12-19">
-          12-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url">
-            <span itemprop="name">逆向工程核心原理（二）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-18T18:18:35+08:00"
-              content="2021-12-18">
-          12-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/18/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="url">
-            <span itemprop="name">逆向工程核心原理（一）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-16T16:45:55+08:00"
-              content="2021-12-16">
-          12-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/16/csapp%E7%AC%AC%E4%B8%80%E7%AB%A0/" itemprop="url">
-            <span itemprop="name">csapp第一章</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-14T10:31:44+08:00"
-              content="2021-12-14">
-          12-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/14/win32%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url">
-            <span itemprop="name">win32编程（二）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-13T19:53:21+08:00"
-              content="2021-12-13">
-          12-13
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/13/win/" itemprop="url">
-            <span itemprop="name">win32编程（一）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h1 id=""><a href="#" class="headerlink" title=""></a><span id="more"></span></h1><h1 id="PE映像"><a href="#PE映像" class="headerlink" title="PE映像"></a>PE映像</h1><p>OS为程序开辟内存地址，然后将文件映射到该内存地址，并且将文件使用的导出函数也映射进去。此时映射在进程内存空间的文件区域称为PE映像。</p>
+<h1 id="PE映像切换"><a href="#PE映像切换" class="headerlink" title="PE映像切换"></a>PE映像切换</h1><p>在应用时我们先以挂起模式运行某个进程(A.exe)，然后将完全不同的PE文件(B.exe)的PE映像映射到A.exe进程空间，并在A.exe的内存空间中运行。</p>
+<h1 id="调试练习"><a href="#调试练习" class="headerlink" title="调试练习"></a>调试练习</h1><p>这里我们准备了Fake.exe,Real.exe,DebugMe3.exe三个文件，Fake文件是在控制台输出字符串，Real文件一个GUI程序，也输出一个字符串。DebugMe3.exe文件是以第一个参数文件做“外壳”，第二个参数文件做“内核进程”运行。运行的结果就是我们在进程管理器看到是fake.exe在运行，实际却是执行的real.exe文件代码。效果图如下：</p>
+<p><img src="/images/ts/3_1.jpg"></p>
+<p>接下来对程序进行调试，进一步分析程序的执行方式。</p>
+<p>我们先进入主函数</p>
+<p><img src="/images/ts/3_2.jpg"></p>
+<p>进入地址401063函数</p>
+<p><img src="/images/ts/3_3.jpg"></p>
+<p><img src="/images/ts/3_4.jpg"></p>
+<p>我们可以看到这个函数是读取real.exe文件内容到内存。然后返回主函数，接下来就是创建进程函数。</p>
+<p><img src="/images/ts/3_5.jpg"></p>
+<p>调用CreateProcess()API创建fake.exe进程。进程处于挂起状态。所以可以自由操纵内存。</p>
+<p>然后可以进入4010B2的函数。</p>
+<p><img src="/images/ts/3_6.jpg"></p>
+<p><img src="/images/ts/3_7.jpg"></p>
+<p><img src="/images/ts/3.8.jpg"></p>
+<p>可以看见函数内部运用了PE映像切换技术。</p>
+<p>4010D1处函数将real.exe映射到fake.exe进程中。</p>
+<p>最后调用ResumeThread（）函数恢复运行fake.exe进程。</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" rel="tag"># 逆向工程核心原理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/21/%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0-%E8%87%AA%E6%88%91%E5%88%9B%E5%BB%BA%E7%AF%87/" rel="prev" title="调试练习-自我创建篇">
+      <i class="fa fa-chevron-left"></i> 调试练习-自我创建篇
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/tags/hexo/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/tags/hexo/">1</a><span class="page-number current">2</span>
-  </nav>
+  
+  
 
 
 
@@ -419,6 +328,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%98%A0%E5%83%8F"><span class="nav-number">2.</span> <span class="nav-text">PE映像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%98%A0%E5%83%8F%E5%88%87%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">PE映像切换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0"><span class="nav-number">4.</span> <span class="nav-text">调试练习</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
